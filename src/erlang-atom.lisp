@@ -14,7 +14,7 @@
       (make-symbol string)))
 
 (defmethod match-p ((a symbol) (b symbol))
-  (eql a b)) ;; What about symbols in different packages?
+  (string= (symbol-name a) (symbol-name b)))
 
 
 ;;;
