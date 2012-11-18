@@ -65,8 +65,6 @@
    #:bytes-to-binary
    #:binary-to-string
    #:node
-   #:make-pid
-   #:make-reference
 
    ;; Conditions
    #:not-implemented-error

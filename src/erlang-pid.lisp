@@ -8,8 +8,6 @@
   ((serial :initarg :serial))
   (:documentation "Erlang PID."))
 
-(defvar *pid-id-counter* 0)
-
 
 ;;;
 ;;; Methods
@@ -23,17 +21,6 @@
 
 ;; Pids in Erlang are printed like this <X.id.serial>
 ;; where X = some number representing the node.
-
-(defun make-pid ()
-  "Create a new Erlang PID."
-  (make-instance 'erlang-pid
-                 :node (make-symbol (this-node))
-                 :id (generate-new-pid-id)
-                 :serial #(0 0 0 0) ;; What to set here?
-                 :creation 1)) ;; What to set here?
-
-(defun generate-new-pid-id ()
-  (uint32-to-bytes (incf *pid-id-counter*)))
 
 ;; Not mentioned in the documentation: Serial only uses the least significant 13 bits!
 
