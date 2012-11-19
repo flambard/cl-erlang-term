@@ -116,10 +116,21 @@
                  bytes)))
 
 (defun decode-external-bit-binary (bytes &optional (pos 0))
-  (let ((length (bytes-to-uint32 bytes pos))
-        (bits (aref bytes (+ 4 pos)))
-        (pos5 (+ pos 5)))
-    (values (make-instance 'erlang-binary
-                           :bits bits
-                           :bytes (subseq bytes pos5 (+ pos5 length)))
-            (+ pos5 length))))
+  (let* ((length (bytes-to-uint32 bytes pos))
+         (bits (aref bytes (+ 4 pos)))
+         (pos5 (+ pos 5))
+         (end-pos (+ pos5 length))
+         (bytes (subseq bytes pos5 end-pos)))
+    ;; Remove unused bits in last byte
+    (when (< 0 length)
+      (symbol-macrolet ((last-byte (aref bytes (1- length))))
+        (setf last-byte (keep-bits last-byte bits))))
+    (values (make-instance 'erlang-binary :bits bits :bytes bytes)
+            end-pos)))
+
+
+;;; Helper functions
+
+(defun keep-bits (byte bits)
+  (let ((unused-bits (- 8 bits)))
+    (ash (ldb (byte bits unused-bits) byte) unused-bits)))
