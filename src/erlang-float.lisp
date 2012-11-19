@@ -55,6 +55,7 @@
                (string-to-bytes (format nil "~(~,20E~)" float))))
 
 (defun decode-external-float (bytes &optional (pos 0))
-  (let ((string (bytes-to-string bytes 31 pos)))
+  (let* ((padding-pos (position 0 bytes :start pos))
+         (string (bytes-to-string bytes (- padding-pos pos) pos)))
     (values (read-from-string string)
             (+ 31 pos))))
