@@ -77,7 +77,7 @@
 (defun encode-external-integer (int32) ;; (<= (- (expt 2 31)) X (1- (expt 2 31)))
   (concatenate 'nibbles:simple-octet-vector
                (vector +integer-ext+)
-               (uint32-to-bytes int32)))
+               (signed-int32-to-bytes int32)))
 
 (defun decode-external-integer (bytes &optional (pos 0))
   (values (bytes-to-signed-int32 bytes pos)
