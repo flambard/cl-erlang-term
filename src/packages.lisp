@@ -17,10 +17,12 @@
    #:read-uint32
 
    #:double-float-to-bytes
+   #:signed-int32-to-bytes
    #:uint16-to-bytes
    #:uint32-to-bytes
    #:unsigned-integer-to-bytes
 
+   #:write-signed-int32
    #:write-uint16
    #:write-uint32
 

@@ -32,11 +32,20 @@
   t)
 
 
+(defun signed-int32-to-bytes (int)
+  (let ((bytes (nibbles:make-octet-vector 4)))
+    (setf (nibbles:sb32ref/be bytes 0) int)
+    bytes))
+
 (defun bytes-to-signed-int32 (bytes &optional (pos 0))
   (nibbles:sb32ref/be bytes pos))
 
 (defun read-signed-int32 (stream)
   (nibbles:read-sb32/be stream))
+
+(defun write-signed-int32 (int stream)
+  (nibbles:write-sb32/be int stream)
+  t)
 
 
 (defun unsigned-integer-to-bytes (uint number-of-bytes)
