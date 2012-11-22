@@ -7,5 +7,6 @@
 (in-package :erlang-term-test)
 
 (def-suite bops)
+(def-suite decode)
 (def-suite erlang-object)
 (def-suite erlang-translatable)
