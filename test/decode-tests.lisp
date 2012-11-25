@@ -82,3 +82,78 @@
   (is (= -2147483647
          (decode (nibbles:octet-vector 111 0 0 0 4 1 255 255 255 127))))
   )
+
+(test decode-list
+  ;; NIL_EXT
+  (is (null (decode (nibbles:octet-vector 106))))
+  ;; LIST_EXT
+  (is (listp (decode (nibbles:octet-vector 108 0 0 0 1 106 106))))
+  (is (= 1 (list-length (decode (nibbles:octet-vector 108 0 0 0 1 106 106)))))
+  (is (= 3 (list-length
+            (decode (nibbles:octet-vector 108 0 0 0 3 97 1 97 2 97 3 106)))))
+  (is (equalp (cons 1 2)
+              (decode (nibbles:octet-vector 108 0 0 0 1 97 1 97 2))))
+  )
+
+(test decode-pid
+  ;; PID_EXT
+  (is (typep (decode (nibbles:octet-vector 103 100 0 4 65 66 66 65
+                                           0 0 0 1 87 0 13 140 1))
+             'erlang-pid))
+  )
+
+(test decode-port
+  ;; PORT_EXT
+  (is (typep (decode (nibbles:octet-vector 102 100 0 4 65 66 66 65 0 0 0 1 1))
+             'erlang-port))
+  )
+
+(test decode-reference
+  ;; REFERENCE_EXT
+  (is (typep (decode (nibbles:octet-vector 101 100 0 4 65 66 66 65 0 0 0 1 1))
+             'erlang-reference))
+  ;; NEW_REFERENCE_EXT
+  (is (typep (decode (nibbles:octet-vector 114 0 2 100 0 4 65 66 66 65 1
+                                           34 42 0 32 80 2 44 12))
+             'erlang-reference))
+  )
+
+(test decode-string
+  ;; STRING_EXT
+  (let ((*erlang-string-is-lisp-string* nil))
+    (is (null (decode (nibbles:octet-vector 107 0 0)))))
+  (let ((*erlang-string-is-lisp-string* nil))
+    (is (listp (decode (nibbles:octet-vector 107 0 4 65 66 66 65)))))
+  (let ((*erlang-string-is-lisp-string* t))
+    (is (stringp (decode (nibbles:octet-vector 107 0 0)))))
+  (let ((*erlang-string-is-lisp-string* t))
+    (is (stringp (decode (nibbles:octet-vector 107 0 4 65 66 66 65)))))
+  (let ((*erlang-string-is-lisp-string* t))
+    (is (string= "" (decode (nibbles:octet-vector 107 0 0)))))
+  (let ((*erlang-string-is-lisp-string* t))
+    (is (string= "ABBA" (decode (nibbles:octet-vector 107 0 4 65 66 66 65)))))
+  ;; Strings are lists by default
+  (is (null (decode (nibbles:octet-vector 107 0 0))))
+  (is (listp (decode (nibbles:octet-vector 107 0 4 65 66 66 65))))
+  (is (= 0 (length (decode (nibbles:octet-vector 107 0 0)))))
+  (is (= 4 (length (decode (nibbles:octet-vector 107 0 4 65 66 66 65)))))
+  )
+
+(test decode-tuple
+  ;; SMALL_TUPLE_EXT
+  (is (typep (decode (nibbles:octet-vector 104 0)) 'erlang-tuple))
+  (is (typep (decode (nibbles:octet-vector 104 1 104 0)) 'erlang-tuple))
+  (is (typep (decode (nibbles:octet-vector 104 2 97 1 97 2)) 'erlang-tuple))
+  (is (= 0 (arity (decode (nibbles:octet-vector 104 0)))))
+  (is (= 1 (arity (decode (nibbles:octet-vector 104 1 104 0)))))
+  (is (= 2 (arity (decode (nibbles:octet-vector 104 2 97 1 97 2)))))
+  ;; LARGE_TUPLE_EXT
+  (is (typep (decode (nibbles:octet-vector 105 0 0 0 0)) 'erlang-tuple))
+  (is (typep (decode (nibbles:octet-vector 105 0 0 0 1 105 0 0 0 0))
+             'erlang-tuple))
+  (is (typep (decode (nibbles:octet-vector 105 0 0 0 2 97 1 97 2))
+             'erlang-tuple))
+  (is (= 0 (arity (decode (nibbles:octet-vector 105 0 0 0 0)))))
+  (is (= 1 (arity (decode (nibbles:octet-vector 105 0 0 0 1 105 0 0 0 0)))))
+  (is (= 2 (arity (decode (nibbles:octet-vector 105 0 0 0 2 97 1 97 2)))))
+  )
