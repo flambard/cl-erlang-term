@@ -7,6 +7,8 @@
   (declare (ignore initargs))
   (error "Not possible to make an instance of class ~s" class))
 
+(defmethod make-load-form ((object erlang-object) &optional environment)
+  (make-load-form-saving-slots object :environment environment))
 
 (defclass erlang-fun (erlang-object)
   ((module :reader module :initarg :module)
