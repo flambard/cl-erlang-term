@@ -22,19 +22,19 @@
   (make-instance 'erlang-tuple
                  :elements (coerce erlang-translatable-objects 'vector)))
 
-(defmethod arity ((x erlang-tuple))
-  "The number of elements of Erlang tuple X."
-  (length (elements x)))
-
-(defmethod size ((x erlang-tuple))
-  "The number of elements of Erlang tuple X."
-  (arity x))
-
 (defun tuple-ref (tuple pos)
   (svref (elements tuple) pos))
 
-(defun erlang-tuple-arity (tuple)
+(defun tuple-arity (tuple)
   (length (elements tuple)))
+
+(defmethod arity ((x erlang-tuple))
+  "The number of elements of Erlang tuple X."
+  (tuple-arity x))
+
+(defmethod size ((x erlang-tuple))
+  "The number of elements of Erlang tuple X."
+  (tuple-arity x))
 
 (defmethod match-p ((a erlang-tuple) (b erlang-tuple))
   (and (= (arity a) (arity b))
@@ -46,7 +46,7 @@
 ;;;
 
 (defmethod encode ((x erlang-tuple) &key atom-cache-entries &allow-other-keys)
-  (if (> 256 (length (elements x)))
+  (if (> 256 (tuple-arity x))
       (encode-external-small-tuple x atom-cache-entries)
       (encode-external-large-tuple x atom-cache-entries)))
 
@@ -82,7 +82,7 @@
 
 (defun encode-external-small-tuple (tuple atom-cache-entries)
   (concatenate 'nibbles:simple-octet-vector
-               (vector +small-tuple-ext+ (erlang-tuple-arity tuple))
+               (vector +small-tuple-ext+ (tuple-arity tuple))
                (mapconc-vector
                 #'(lambda (element)
                     (encode element :atom-cache-entries atom-cache-entries))
@@ -107,7 +107,7 @@
 (defun encode-external-large-tuple (tuple atom-cache-entries)
   (concatenate 'nibbles:simple-octet-vector
                (vector +large-tuple-ext+)
-               (uint32-to-bytes (erlang-tuple-arity tuple))
+               (uint32-to-bytes (tuple-arity tuple))
                (mapconc-vector
                 #'(lambda (element)
                     (encode element :atom-cache-entries atom-cache-entries))

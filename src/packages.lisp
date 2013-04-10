@@ -62,6 +62,7 @@
    #:size
    #:elements
    #:tuple
+   #:tuple-arity
    #:tuple-ref
    #:binary
    #:string-to-binary
