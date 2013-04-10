@@ -30,7 +30,7 @@
   "The number of elements of Erlang tuple X."
   (arity x))
 
-(defun erlang-tuple-ref (tuple pos)
+(defun tuple-ref (tuple pos)
   (svref (elements tuple) pos))
 
 (defun erlang-tuple-arity (tuple)
