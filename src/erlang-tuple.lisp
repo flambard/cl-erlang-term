@@ -50,27 +50,6 @@
       (encode-external-small-tuple x atom-cache-entries)
       (encode-external-large-tuple x atom-cache-entries)))
 
-(defun decode-erlang-tuple (bytes &key (start 0) (version-tag nil))
-  (when (integerp version-tag)
-    (let ((version (aref bytes start)))
-      (unless (= version version-tag)
-        (error 'unexpected-message-tag-error
-               :received-tag version
-               :expected-tags (list version-tag))))
-    (incf start))
-  (let ((tag (aref bytes start)))
-    (case tag
-      (#.+small-tuple-ext+ (decode-external-small-tuple bytes (1+ start)))
-      (#.+large-tuple-ext+ (decode-external-large-tuple bytes (1+ start)))
-      (#.+compressed-term+
-       (decode-compressed-erlang-term bytes (1+ start)))
-      (otherwise
-       (error 'unexpected-message-tag-error
-              :received-tag tag
-              :expected-tags (list +small-tuple-ext+
-                                   +large-tuple-ext+
-                                   +compressed-term+))) )))
-
 
 ;; SMALL_TUPLE_EXT
 ;; +-----+-------+----------+
