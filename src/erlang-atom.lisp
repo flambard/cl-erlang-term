@@ -21,17 +21,16 @@
 ;;; Encode/Decode
 ;;;
 
-(defmethod encode ((x symbol) &key atom-cache-entries &allow-other-keys)
+(defmethod encode ((x symbol) &key &allow-other-keys)
   (cond
     ((and (null x) *lisp-nil-is-erlang-empty-list*)
      (encode-external-nil))
     ((and (null x) *lisp-nil-is-erlang-false*)
-     (encode '|false| :atom-cache-entries atom-cache-entries))
+     (encode '|false|))
     ((and (eq T x) *lisp-t-is-erlang-true*)
-     (encode '|true| :atom-cache-entries atom-cache-entries))
+     (encode '|true|))
     (t
-     (let ((index (when atom-cache-entries
-                    (make-atom-cache-entry x atom-cache-entries))))
+     (let ((index (when *atom-cache* (put-atom x *atom-cache*))))
        (cond
          (index ;; Use an atom cache reference
           (encode-external-atom-cache-ref index))
@@ -84,8 +83,13 @@
                (vector reference-index)))
 
 (defun decode-external-atom-cache-ref (bytes &optional (pos 0))
-  (values (svref *cached-atoms* (aref bytes pos))
-          (1+ pos)))
+  (unless *atom-cache*
+    (error "Cannot decode cached atom without an atom cache"))
+  (let ((cached-atom (get-atom (aref bytes pos) *atom-cache*)))
+    (unless cached-atom
+      (error "Atom reference ~a does not exist in atom cache" cached-atom))
+    (values cached-atom
+            (1+ pos))))
 
 
 

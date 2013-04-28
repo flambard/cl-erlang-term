@@ -45,10 +45,10 @@
 ;;; Encode/Decode
 ;;;
 
-(defmethod encode ((x erlang-tuple) &key atom-cache-entries &allow-other-keys)
+(defmethod encode ((x erlang-tuple) &key &allow-other-keys)
   (if (> 256 (tuple-arity x))
-      (encode-external-small-tuple x atom-cache-entries)
-      (encode-external-large-tuple x atom-cache-entries)))
+      (encode-external-small-tuple x)
+      (encode-external-large-tuple x)))
 
 
 ;; SMALL_TUPLE_EXT
@@ -59,13 +59,10 @@
 ;; +-----+-------+----------+
 ;;
 
-(defun encode-external-small-tuple (tuple atom-cache-entries)
+(defun encode-external-small-tuple (tuple)
   (concatenate 'nibbles:simple-octet-vector
                (vector +small-tuple-ext+ (tuple-arity tuple))
-               (mapconc-vector
-                #'(lambda (element)
-                    (encode element :atom-cache-entries atom-cache-entries))
-                (elements tuple))))
+               (mapconc-vector #'encode (elements tuple))))
 
 (defun decode-external-small-tuple (bytes &optional (pos 0))
   (let ((arity (aref bytes pos)))
@@ -83,14 +80,11 @@
 ;; +-----+-------+----------+
 ;;
 
-(defun encode-external-large-tuple (tuple atom-cache-entries)
+(defun encode-external-large-tuple (tuple)
   (concatenate 'nibbles:simple-octet-vector
                (vector +large-tuple-ext+)
                (uint32-to-bytes (tuple-arity tuple))
-               (mapconc-vector
-                #'(lambda (element)
-                    (encode element :atom-cache-entries atom-cache-entries))
-                (elements tuple))))
+               (mapconc-vector #'encode (elements tuple))))
 
 (defun decode-external-large-tuple (bytes &optional (pos 0))
   (let ((arity (bytes-to-uint32 bytes pos)))

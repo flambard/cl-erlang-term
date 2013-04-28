@@ -17,9 +17,9 @@
 ;;; Encode/Decode
 ;;;
 
-(defmethod encode ((x list) &key atom-cache-entries &allow-other-keys)
+(defmethod encode ((x list) &key &allow-other-keys)
   (if x
-      (encode-external-list x atom-cache-entries)
+      (encode-external-list x)
       (encode-external-nil)))
 
 
@@ -47,9 +47,9 @@
 ;; +-----+--------+----------+------+
 ;;
 
-(defun encode-external-list (list &optional atom-cache-entries)
+(defun encode-external-list (list)
   (multiple-value-bind (elements tail length)
-      (list-contents-to-bytes list atom-cache-entries)
+      (list-contents-to-bytes list)
     (concatenate 'nibbles:simple-octet-vector
                  (vector +list-ext+)
                  (uint32-to-bytes length)
@@ -63,7 +63,7 @@
 
 ;;; Helper functions
 
-(defun list-contents-to-bytes (list &optional atom-cache-entries)
+(defun list-contents-to-bytes (list)
   (loop
      with bytes = #()
      for (element . tail) on list
@@ -71,13 +71,12 @@
      do (setf bytes (concatenate
                      'nibbles:simple-octet-vector
                      bytes
-                     (encode element :atom-cache-entries atom-cache-entries)))
+                     (encode element)))
      finally
        (let ((tail-bytes (if (and (null tail)
                                   *lisp-nil-at-tail-is-erlang-empty-list*)
                              (encode-external-nil)
-                             (encode tail
-                                     :atom-cache-entries atom-cache-entries))))
+                             (encode tail))))
          (return (values bytes tail-bytes length))) ))
 
 (defun decode-list-contents (bytes length &optional (pos 0))

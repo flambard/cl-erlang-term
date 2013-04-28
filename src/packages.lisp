@@ -1,3 +1,16 @@
+(defpackage #:etf-atom-cache-interface
+  (:documentation "A generic atom cache interface. This interface is expected to
+be implemented by an application that wants to use cached atom references.")
+  (:nicknames #:etf-aci)
+  (:use #:cl)
+  (:export
+
+   #:*atom-cache*
+   #:get-atom
+   #:put-atom
+
+   ))
+
 (defpackage #:etf-bops
   (:documentation "Byte operations.")
   (:use #:cl)
@@ -33,7 +46,7 @@
 (defpackage #:erlang-term
   (:documentation "Erlang External Term Format")
   (:nicknames #:etf)
-  (:use #:cl #:etf-bops)
+  (:use #:cl #:etf-atom-cache-interface #:etf-bops)
   (:export
 
    ;; Type
@@ -78,7 +91,6 @@
 
    ;; Special variables
    #:*atom-symbol-package*
-   #:*cached-atoms*
    #:*lisp-t-is-erlang-true*
    #:*lisp-nil-is-erlang-empty-list*
    #:*lisp-nil-is-erlang-false*

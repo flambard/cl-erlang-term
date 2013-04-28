@@ -5,9 +5,6 @@
 (defvar *atom-symbol-package* :keyword
   "The package in which atom symbols are interned. Symbols are uninterned if NIL.")
 
-(defvar *cached-atoms* #()
-  "A vector of cached atoms.")
-
 (defvar *lisp-t-is-erlang-true*
   NIL
   "Send the Lisp T to Erlang as 'true' instead of 'T'.")

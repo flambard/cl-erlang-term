@@ -23,6 +23,8 @@
                     :depends-on ("packages"))
              (:file "special-variables"
                     :depends-on ("packages"))
+             (:file "atom-cache-interface"
+                    :depends-on ("packages"))
              (:file "bops"
                     :depends-on ("packages"))
              (:file "classes"
@@ -53,6 +55,7 @@
                                  "constants"
                                  "conditions"
                                  "special-variables"
+                                 "atom-cache-interface"
                                  "bops"))
              (:file "erlang-binary"
                     :depends-on ("packages"

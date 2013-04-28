@@ -4,15 +4,15 @@
 ;;;; ENCODE - For encoding Erlang terms
 ;;;;
 
-(defgeneric encode (erlang-translatable-object &key version-tag atom-cache-entries)
+(defgeneric encode (erlang-translatable-object &key version-tag)
   (:documentation "Encodes the Erlang translatable object to a byte vector."))
 
-(defmethod encode :around (x &key version-tag atom-cache-entries)
+(defmethod encode :around (x &key version-tag)
   (if (integerp version-tag)
       (concatenate 'nibbles:simple-octet-vector
                    (vector version-tag)
-                   (call-next-method x :atom-cache-entries atom-cache-entries))
-      (call-next-method x :atom-cache-entries atom-cache-entries)))
+                   (call-next-method x))
+      (call-next-method x)))
 
 
 ;;;;
