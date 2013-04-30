@@ -17,7 +17,8 @@ to make use of cached atoms in it.")
 
 (defgeneric get-atom (reference cache)
   (:documentation "Get and return the atom from CACHE identified by REFERENCE.
-Returns NIL when no atom is found for REFERENCE."))
+The second return value is a boolean that indicates whether an atom was found
+for REFERENCE. The first return value is NIL when no atom is found."))
 
 (defgeneric put-atom (atom cache)
   (:documentation "Put ATOM into CACHE, creating a new entry for it if it does
