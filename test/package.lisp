@@ -8,5 +8,6 @@
 
 (def-suite bops)
 (def-suite decode)
+(def-suite encode)
 (def-suite erlang-object)
 (def-suite erlang-translatable)

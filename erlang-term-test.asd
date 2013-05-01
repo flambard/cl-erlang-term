@@ -12,6 +12,9 @@
              (:file "decode-tests"
                     :depends-on ("package"
                                  "mock-atom-cache"))
+             (:file "encode-tests"
+                    :depends-on ("package"
+                                 "mock-atom-cache"))
              (:file "erlang-object-tests"
                     :depends-on ("package"))
              (:file "erlang-translatable-tests"
