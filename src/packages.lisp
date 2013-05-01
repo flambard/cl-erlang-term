@@ -46,7 +46,7 @@ be implemented by an application that wants to use cached atom references.")
 (defpackage #:erlang-term
   (:documentation "Erlang External Term Format")
   (:nicknames #:etf)
-  (:use #:cl #:etf-atom-cache-interface #:etf-bops)
+  (:use #:cl #:etf-bops)
   (:export
 
    ;; Type

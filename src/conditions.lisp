@@ -4,6 +4,17 @@
   ((comment :reader comment :initarg :comment))
   (:documentation "The signaling function is not implemented yet."))
 
+(define-condition atom-cache-missing-error (error)
+  ((bytes :reader bytes :initarg :bytes))
+  (:documentation "This error is signaled when attempting to decode a atom cache
+reference without an atom cache to fetch the atom from."))
+
+(define-condition atom-not-in-cache-error (error)
+  ((bytes :reader bytes :initarg :bytes)
+   (atom-reference :reader atom-reference :initarg :atom-reference))
+  (:documentation "This error is signaled when attempting to decode a atom cache
+reference and there is no corresponding atom in the atom cache."))
+
 (define-condition malformed-message-error (error)
   ((bytes :reader bytes :initarg :bytes))
   (:documentation "This error is signaled when a protocol message is malformed."))
