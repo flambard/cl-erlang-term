@@ -3,7 +3,13 @@
 (in-suite decode)
 
 (test decode-atom
-  ;; TODO: ATOM_CACHE_REF
+  ;; ATOM_CACHE_REF
+  (let ((etf-aci:*atom-cache* (make-instance 'mock-atom-cache)))
+    (is (symbolp (decode (nibbles:octet-vector 82 42))))
+    (is (string= "ABBA" (symbol-name
+                         (decode (nibbles:octet-vector 82 42)))))
+    ;; TODO: Add tests for error conditions (cache missing, atom missing)
+    )
   ;; ATOM_EXT
   (is (symbolp (decode (nibbles:octet-vector 100 0 4 65 66 66 65))))
   (is (string= "ABBA" (symbol-name
