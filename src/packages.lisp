@@ -18,6 +18,7 @@ be implemented by an application that wants to use cached atom references.")
 
    #:bytes-to-double-float
    #:bytes-to-signed-int32
+   #:bytes-to-string
    #:bytes-to-uint16
    #:bytes-to-uint32
    #:bytes-to-unsigned-integer
@@ -37,6 +38,8 @@ be implemented by an application that wants to use cached atom references.")
    #:write-signed-int32
    #:write-uint16
    #:write-uint32
+
+   #:string-to-bytes
 
    ))
 

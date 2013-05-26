@@ -67,6 +67,13 @@
     bytes))
 
 
+(defun string-to-bytes (string)
+  (map 'simple-vector #'char-code string))
+
+(defun bytes-to-string (bytes &optional length (pos 0))
+  (map 'string #'code-char (subseq bytes pos (when length (+ pos length)))))
+
+
 (defun read-bytes (n stream)
   (let ((bytes (nibbles:make-octet-vector n)))
     (read-sequence bytes stream)
