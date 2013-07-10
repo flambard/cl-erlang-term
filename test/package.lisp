@@ -1,6 +1,7 @@
 (defpackage #:erlang-term-test
   (:documentation "")
   (:use #:cl #:erlang-term #:etf-bops #:fiveam)
+  (:shadow #:run-all-tests)
   (:export
 
    #:run-all-tests
