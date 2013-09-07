@@ -8,7 +8,7 @@
   :author "Markus Flambard <mflambard@common-lisp.net>"
   :version "0.1.2"
   :license "MIT License"
-  :depends-on (:alexandria :nibbles)
+  :depends-on (:alexandria :ieee-floats :nibbles)
   :components
   ((:module :src
             :components

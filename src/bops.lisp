@@ -88,8 +88,8 @@
 
 (defun double-float-to-bytes (f)
   (let ((bytes (nibbles:make-octet-vector 8)))
-    (setf (nibbles:ieee-double-ref/be bytes 0) f)
+    (setf (nibbles:ub64ref/be bytes 0) (ieee-floats:encode-float64 f))
     bytes))
 
 (defun bytes-to-double-float (bytes)
-  (nibbles:ieee-double-ref/be bytes 0))
+  (ieee-floats:decode-float64 (nibbles:nibbles:ub64ref/be bytes 0)))
