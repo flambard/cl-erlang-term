@@ -1,5 +1,5 @@
 (defpackage #:erlang-term-test
-  (:documentation "")
+  (:documentation "Unit tests for cl-erlang-term.")
   (:use #:cl #:erlang-term #:etf-bops #:fiveam)
   (:shadow #:run-all-tests)
   (:export
