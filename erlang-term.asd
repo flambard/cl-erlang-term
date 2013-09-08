@@ -6,7 +6,7 @@
 (asdf:defsystem :erlang-term
   :description "Erlang External Term Format"
   :author "Markus Flambard <mflambard@common-lisp.net>"
-  :version "0.1.2"
+  :version "0.1.3"
   :license "MIT License"
   :depends-on (:alexandria :ieee-floats :nibbles)
   :components
