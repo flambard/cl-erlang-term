@@ -4,21 +4,20 @@
   (:shadow #:run-all-tests)
   (:export
 
+   #:all-tests
    #:run-all-tests
 
    ))
 
 (in-package :erlang-term-test)
 
-(def-suite bops)
-(def-suite decode)
-(def-suite encode)
-(def-suite erlang-object)
-(def-suite erlang-translatable)
+(def-suite all-tests)
+
+(def-suite bops                :in all-tests)
+(def-suite decode              :in all-tests)
+(def-suite encode              :in all-tests)
+(def-suite erlang-object       :in all-tests)
+(def-suite erlang-translatable :in all-tests)
 
 (defun run-all-tests ()
-  (run! 'bops)
-  (run! 'decode)
-  (run! 'encode)
-  (run! 'erlang-object)
-  (run! 'erlang-translatable))
+  (run! 'all-tests))
