@@ -92,4 +92,4 @@
     bytes))
 
 (defun bytes-to-double-float (bytes)
-  (ieee-floats:decode-float64 (nibbles:nibbles:ub64ref/be bytes 0)))
+  (ieee-floats:decode-float64 (nibbles:ub64ref/be bytes 0)))
