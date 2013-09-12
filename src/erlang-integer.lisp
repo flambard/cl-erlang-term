@@ -38,16 +38,13 @@
        (decode-external-small-big bytes (1+ pos)))
       (#.+large-big-ext+
        (decode-external-large-big bytes (1+ pos)))
-      (#'+compressed-term+
-       (decode-compressed-erlang-term bytes (1+ pos)))
       (otherwise
        (error 'unexpected-message-tag-error
               :received-tag tag
               :expected-tags (list +small-integer-ext+
                                    +integer-ext+
                                    +small-big-ext+
-                                   +large-big-ext+
-                                   +compressed-term+))) )))
+                                   +large-big-ext+))) )))
 
 
 ;; SMALL_INTEGER_EXT

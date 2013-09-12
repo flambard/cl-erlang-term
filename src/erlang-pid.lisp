@@ -39,15 +39,11 @@
 (defun decode-erlang-pid (bytes &optional (pos 0))
   (let ((tag (aref bytes pos)))
     (case tag
-      (#.+pid-ext+
-       (decode-external-pid bytes (1+ pos)))
-      (#.+compressed-term+
-       (decode-compressed-erlang-term bytes (1+ pos)))
+      (#.+pid-ext+ (decode-external-pid bytes (1+ pos)))
       (otherwise
        (error 'unexpected-erlang-term
               :received-tag tag
-              :expected-tags (list +pid-ext+
-                                   +compressed-term+))) )))
+              :expected-tags (list +pid-ext+))) )))
 
 
 ;; PID_EXT

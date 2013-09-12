@@ -51,15 +51,12 @@
            (decode-external-atom bytes (1+ pos)))
           (#.+small-atom-ext+
            (decode-external-small-atom bytes (1+ pos)))
-          (#.+compressed-term+
-           (decode-compressed-erlang-term bytes (1+ pos)))
           (otherwise
            (error 'unexpected-message-tag-error
                   :received-tag tag
                   :expected-tags (list +atom-cache-ref+
                                        +atom-ext+
-                                       +small-atom-ext+
-                                       +compressed-term+))) )
+                                       +small-atom-ext+))) )
       (cond
         ((and (eq symbol '|true|) *erlang-true-is-lisp-t*)
          (values T pos2))
