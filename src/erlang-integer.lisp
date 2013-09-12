@@ -38,7 +38,7 @@
        (decode-external-small-big bytes (1+ pos)))
       (#.+large-big-ext+
        (decode-external-large-big bytes (1+ pos)))
-      (#'+compressed-term+
+      (#.+compressed-term+
        (decode-compressed-erlang-term bytes (1+ pos)))
       (otherwise
        (error 'unexpected-message-tag-error
