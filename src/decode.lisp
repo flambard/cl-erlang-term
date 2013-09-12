@@ -94,7 +94,7 @@
 
 
 (defun decode-compressed-erlang-term (bytes &optional (pos 0))
-  (let ((uncompressed-size (bytes-to-uint32 bytes pos)))
-    (declare (ignore uncompressed-size))
-    (error 'not-implemented-error
-           :comment "Decoding compressed Erlang terms is unsupported.")))
+  (let ((size (bytes-to-uint32 bytes pos)))
+    (decode (zlib:uncompress (subseq bytes (+ 4 pos)) :uncompressed-size size)
+            :start 0
+            :version-tag nil)))

@@ -163,3 +163,10 @@
   (is (= 1 (arity (decode (nibbles:octet-vector 105 0 0 0 1 105 0 0 0 0)))))
   (is (= 2 (arity (decode (nibbles:octet-vector 105 0 0 0 2 97 1 97 2)))))
   )
+
+(test decode-compressed
+  (is (match-p (tuple 1 2 3)
+               (decode (nibbles:octet-vector 80 0 0 0 8
+                                             120 156 203 96 78 100 76
+                                             100 74 100 6 0 7 247 1 149))))
+  )
