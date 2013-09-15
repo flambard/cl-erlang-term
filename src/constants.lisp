@@ -2,6 +2,8 @@
 
 (in-package :erlang-term)
 
+(defconstant +protocol-version+ 131)
+
 ;;; Erlang data tags
 (defconstant +compressed-term+    80)
 (defconstant +new-float-ext+      70)

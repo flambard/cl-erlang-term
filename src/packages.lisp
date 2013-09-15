@@ -100,4 +100,7 @@ be implemented by an application that wants to use cached atom references.")
    #:*erlang-false-is-lisp-nil*
    #:*erlang-string-is-lisp-string*
 
+   ;; Constants
+   #:+protocol-version+
+
    ))
