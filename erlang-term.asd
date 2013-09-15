@@ -15,8 +15,6 @@
             ((:file "packages")
              (:file "macros"
                     :depends-on ("packages"))
-             (:file "generic-functions"
-                    :depends-on ("packages"))
              (:file "conditions"
                     :depends-on ("packages"))
              (:file "constants"
@@ -32,6 +30,9 @@
              (:file "type-erlang-translatable"
                     :depends-on ("packages"
                                  "classes"))
+             (:file "generic-functions"
+                    :depends-on ("packages"
+                                 "constants"))
              (:file "decode"
                     :depends-on ("packages"
                                  "conditions"
@@ -54,6 +55,7 @@
                     :depends-on ("packages"
                                  "constants"
                                  "conditions"
+                                 "generic-functions"
                                  "special-variables"
                                  "atom-cache-interface"
                                  "bops"))
@@ -61,6 +63,7 @@
                     :depends-on ("packages"
                                  "constants"
                                  "conditions"
+                                 "generic-functions"
                                  "special-variables"
                                  "classes"
                                  "bops"))
@@ -68,12 +71,14 @@
                     :depends-on ("packages"
                                  "constants"
                                  "conditions"
+                                 "generic-functions"
                                  "bops"))
              (:file "erlang-fun"
                     :depends-on ("packages"
                                  "macros"
                                  "constants"
                                  "conditions"
+                                 "generic-functions"
                                  "special-variables"
                                  "classes"
                                  "bops"))
@@ -81,18 +86,21 @@
                     :depends-on ("packages"
                                  "constants"
                                  "conditions"
+                                 "generic-functions"
                                  "bops"))
              (:file "erlang-list"
                     :depends-on ("packages"
                                  "macros"
                                  "constants"
                                  "conditions"
+                                 "generic-functions"
                                  "special-variables"
                                  "bops"))
              (:file "erlang-pid"
                     :depends-on ("packages"
                                  "constants"
                                  "conditions"
+                                 "generic-functions"
                                  "special-variables"
                                  "classes"
                                  "bops"))
@@ -100,24 +108,28 @@
                     :depends-on ("packages"
                                  "constants"
                                  "conditions"
+                                 "generic-functions"
                                  "classes"
                                  "bops"))
              (:file "erlang-reference"
                     :depends-on ("packages"
                                  "constants"
                                  "conditions"
+                                 "generic-functions"
                                  "classes"
                                  "bops"))
              (:file "erlang-string"
                     :depends-on ("packages"
                                  "constants"
                                  "conditions"
+                                 "generic-functions"
                                  "special-variables"
                                  "bops"))
              (:file "erlang-tuple"
                     :depends-on ("packages"
                                  "constants"
                                  "conditions"
+                                 "generic-functions"
                                  "classes"
                                  "bops"))
              ))))
