@@ -108,7 +108,8 @@
 (defun decode-tuple-contents (bytes arity pos)
   (loop
      repeat arity
-     for (element pos1) = (multiple-value-list (decode bytes :start pos))
+     for (element pos1) = (multiple-value-list
+                           (decode bytes :start pos :version-tag nil))
      do (setf pos pos1)
      collect element into elements
      finally (return (values (coerce elements 'vector) pos))))

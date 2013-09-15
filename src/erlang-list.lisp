@@ -81,8 +81,8 @@
 
 (defun decode-list-contents (bytes length &optional (pos 0))
   (if (= 0 length)
-      (decode bytes :start pos)
-      (multiple-value-bind* (((term new-pos) (decode bytes :start pos))
-                             ((tail end-pos)
-                              (decode-list-contents bytes (1- length) new-pos)))
+      (decode bytes :start pos :version-tag nil)
+      (multiple-value-bind*
+          (((term new-pos) (decode bytes :start pos :version-tag nil))
+           ((tail end-pos) (decode-list-contents bytes (1- length) new-pos)))
         (values (cons term tail) end-pos) )))
