@@ -48,7 +48,7 @@
   (with-slots (node id creation) ref
     (concatenate 'nibbles:simple-octet-vector
                  (vector +reference-ext+)
-                 (encode node)
+                 (encode node :version-tag nil)
                  id
                  (vector creation))))
 
@@ -74,7 +74,7 @@
     (concatenate 'nibbles:simple-octet-vector
                  (vector +new-reference-ext+)
                  (uint16-to-bytes (/ (length id) 4))
-                 (encode node)
+                 (encode node :version-tag nil)
                  (vector creation)
                  id))) ;; Several 4-byte IDs..
 

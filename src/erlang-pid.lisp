@@ -58,7 +58,7 @@
   (with-slots (node id serial creation) pid
     (concatenate 'nibbles:simple-octet-vector
                  (vector +pid-ext+)
-                 (encode node)
+                 (encode node :version-tag nil)
                  id
                  serial
                  (vector creation))))

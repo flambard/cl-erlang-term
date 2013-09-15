@@ -5,7 +5,7 @@
 (test encode-atom
   ;; ATOM_CACHE_REF
   (let ((etf-aci:*atom-cache* (make-instance 'mock-atom-cache)))
-    (is (equalp (nibbles:octet-vector 82 42) (encode :abba))) )
+    (is (equalp (nibbles:octet-vector 131 82 42) (encode :abba))) )
   ;; TODO: ATOM_EXT
   ;; TODO: SMALL_ATOM_EXT
   )

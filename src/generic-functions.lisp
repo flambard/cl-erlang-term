@@ -7,7 +7,7 @@
 (defgeneric encode (erlang-translatable-object &key version-tag compressed)
   (:documentation "Encodes the Erlang translatable object to a byte vector."))
 
-(defmethod encode :around (x &key version-tag compressed)
+(defmethod encode :around (x &key (version-tag +protocol-version+) compressed)
   (let ((bytes (call-next-method x)))
     (when compressed
       (setf bytes (concatenate 'nibbles:simple-octet-vector

@@ -71,12 +71,12 @@
      do (setf bytes (concatenate
                      'nibbles:simple-octet-vector
                      bytes
-                     (encode element)))
+                     (encode element :version-tag nil)))
      finally
        (let ((tail-bytes (if (and (null tail)
                                   *lisp-nil-at-tail-is-erlang-empty-list*)
                              (encode-external-nil)
-                             (encode tail))))
+                             (encode tail :version-tag nil))))
          (return (values bytes tail-bytes length))) ))
 
 (defun decode-list-contents (bytes length &optional (pos 0))

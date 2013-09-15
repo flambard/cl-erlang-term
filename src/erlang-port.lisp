@@ -39,7 +39,7 @@
   (with-slots (node id creation) port
     (concatenate 'nibbles:simple-octet-vector
                  (vector +port-ext+)
-                 (encode node)
+                 (encode node :version-tag nil)
                  id
                  (vector creation))))
 

@@ -82,10 +82,10 @@
     (concatenate 'nibbles:simple-octet-vector
                  (vector +fun-ext+)
                  (uint32-to-bytes (length free-vars))
-                 (encode pid)
-                 (encode module)
-                 (encode index)
-                 (encode uniq)
+                 (encode pid :version-tag nil)
+                 (encode module :version-tag nil)
+                 (encode index :version-tag nil)
+                 (encode uniq :version-tag nil)
                  (list-contents-to-bytes free-vars))))
 
 (defun decode-external-fun (bytes &optional (pos 0))
@@ -124,10 +124,10 @@
                               new-uniq
                               (uint32-to-bytes new-index)
                               (uint32-to-bytes (length free-vars))
-                              (encode module)
-                              (encode index)
-                              (encode uniq)
-                              (encode pid)
+                              (encode module :version-tag nil)
+                              (encode index :version-tag nil)
+                              (encode uniq :version-tag nil)
+                              (encode pid :version-tag nil)
                               (list-contents-to-bytes free-vars))))
       (concatenate 'nibbles:simple-octet-vector
                    (vector +new-fun-ext+)
@@ -177,9 +177,9 @@
   (with-slots (module function arity) fun
     (concatenate 'nibbles:simple-octet-vector
                  (vector +export-ext+)
-                 (encode module)
-                 (encode function)
-                 (encode arity))))
+                 (encode module :version-tag nil)
+                 (encode function :version-tag nil)
+                 (encode arity :version-tag nil))))
 
 (defun decode-external-export (bytes &optional (pos 0))
   (multiple-value-bind* (((module pos1) (decode-erlang-atom bytes pos))
