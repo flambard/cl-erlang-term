@@ -22,7 +22,7 @@
      (encode-external-small-integer x))
     ((integer #.(- (expt 2 31)) #.(1- (expt 2 31)))
      (encode-external-integer x))
-    ((integer #.(- (expt 2 2040)) #.(expt 2 2040))
+    ((integer #.(- (1- (expt 2 2040))) #.(1- (expt 2 2040)))
      (encode-external-small-big x))
     (t
      (encode-external-large-big x))))
@@ -71,7 +71,8 @@
 ;; +----+-----+
 ;;
 
-(defun encode-external-integer (int32) ;; (<= (- (expt 2 31)) X (1- (expt 2 31)))
+(defun encode-external-integer (int32)
+  ;; (<= (- (expt 2 31)) X (1- (expt 2 31)))
   (concatenate 'nibbles:simple-octet-vector
                (vector +integer-ext+)
                (signed-int32-to-bytes int32)))
@@ -92,7 +93,8 @@
 ;; B = 256
 ;; Formula: d(0)*B^0 + d(1)*B^1 + ... d(N-1)*B^(N-1)
 
-(defun encode-external-small-big (bignum) ;; (< (- (expt 2 2040)) X (expt 2 2040))
+(defun encode-external-small-big (bignum)
+  ;; (< (- (1- (expt 2 2040))) X (1- (expt 2 2040)))
   (let* ((sign (if (< bignum 0) 1 0))
          (unsigned-bignum (abs bignum))
          (length (bignum-byte-length unsigned-bignum)))
