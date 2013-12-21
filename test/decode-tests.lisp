@@ -73,25 +73,33 @@
   ;; INTEGER_EXT
   (is (typep (decode (nibbles:octet-vector 131 98 97 44 52 3)) 'integer))
   (is (= 0 (decode (nibbles:octet-vector 131 98 0 0 0 0))))
-  (is (= 2147483647 (decode (nibbles:octet-vector 131 98 127 255 255 255))))
+  (is (= (1- (expt 2 31))
+         (decode (nibbles:octet-vector 131 98 127 255 255 255))))
   (is (= -1 (decode (nibbles:octet-vector 131 98 255 255 255 255))))
+  (is (= (- (expt 2 31))
+         (decode (nibbles:octet-vector 131 98 128 0 0 0))))
   ;; SMALL_BIG_EXT
   (is (typep (decode (nibbles:octet-vector 131 110 5 0 52 3 0 128 212))
              'integer))
   (is (= 0 (decode (nibbles:octet-vector 131 110 7 0 0 0 0 0 0 0 0))))
   (is (= -255 (decode (nibbles:octet-vector 131 110 1 1 255))))
-  (is (= 4294967295
+  (is (= (expt 2 31)
+         (decode (nibbles:octet-vector 131 110 4 0 0 0 0 128))))
+  (is (= (1- (expt 2 32))
          (decode (nibbles:octet-vector 131 110 4 0 255 255 255 255))))
-  (is (= -2147483647
-         (decode (nibbles:octet-vector 131 110 4 1 255 255 255 127))))
+  (is (= (- (1+ (expt 2 31)))
+         (decode (nibbles:octet-vector 131 110 4 1 1 0 0 128))))
+  (is (= (- (1- (expt 2 32)))
+         (decode (nibbles:octet-vector 131 110 4 1 255 255 255 255))))
+
   ;; LARGE_BIG_EXT
   (is (typep (decode (nibbles:octet-vector 131 111 0 0 0 5 0 52 3 0 128 212))
              'integer))
   (is (= 0 (decode (nibbles:octet-vector 131 111 0 0 0 7 0 0 0 0 0 0 0 0))))
   (is (= -255 (decode (nibbles:octet-vector 131 111 0 0 0 1 1 255))))
-  (is (= 4294967295
+  (is (= (1- (expt 2 32))
          (decode (nibbles:octet-vector 131 111 0 0 0 4 0 255 255 255 255))))
-  (is (= -2147483647
+  (is (= (- (1- (expt 2 31)))
          (decode (nibbles:octet-vector 131 111 0 0 0 4 1 255 255 255 127))))
   )
 
