@@ -27,7 +27,7 @@
      (encode-external-nil))
     ((and (null x) *lisp-nil-is-erlang-false*)
      (encode '|false|))
-    ((and (eq T x) *lisp-t-is-erlang-true*)
+    ((and (eq t x) *lisp-t-is-erlang-true*)
      (encode '|true|))
     (t
      (let ((index (when etf-aci:*atom-cache*
@@ -62,9 +62,9 @@
                                        +compressed-term+))) )
       (cond
         ((and (eq symbol '|true|) *erlang-true-is-lisp-t*)
-         (values T pos2))
+         (values t pos2))
         ((and (eq symbol '|false|) *erlang-false-is-lisp-nil*)
-         (values NIL pos2))
+         (values nil pos2))
         (t
          (values symbol pos2))) )))
 
