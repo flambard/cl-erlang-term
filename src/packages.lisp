@@ -82,6 +82,9 @@ be implemented by an application that wants to use cached atom references.")
    #:bytes-to-binary
    #:binary-to-string
    #:node
+   #:make-pid
+   #:make-port
+   #:make-reference
 
    ;; Conditions
    #:not-implemented-error

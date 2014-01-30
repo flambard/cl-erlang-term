@@ -82,9 +82,29 @@
               (encode (cons 1 2))))
   )
 
-;; TODO: pid tests
-;; TODO: port tests
-;; TODO: reference tests
+(test encode-pid
+  ;; PID_EXT
+  (is (equalp (nibbles:octet-vector 131 103 115 4 65 66 66 65 0 0 0 1 0 0 0 0 1)
+              (encode (make-pid "ABBA" #(0 0 0 1) #(0 0 0 0) 1))))
+  )
+
+(test encode-port
+  ;; PORT_EXT
+  (is (equalp (nibbles:octet-vector 131 102 115 4 65 66 66 65 0 0 0 1 1)
+              (encode (make-port "ABBA" #(0 0 0 1) 1))))
+  )
+
+(test encode-reference
+  ;; REFERENCE_EXT
+  ;; Assuming 'small' atoms are used
+  (is (equalp (nibbles:octet-vector 131 101 115 4 65 66 66 65 0 0 0 1 1)
+              (encode (make-reference "ABBA" #(0 0 0 1) 1))))
+  ;; NEW_REFERENCE_EXT
+  ;; Assuming 'small' atoms are used
+  (is (equalp (nibbles:octet-vector 131 114 0 2 115 4 65 66 66 65 1
+                                    34 42 0 32 80 2 44 12)
+              (encode (make-reference "ABBA" #(34 42 0 32 80 2 44 12) 1))))
+  )
 
 (test encode-string
   ;; STRING_EXT

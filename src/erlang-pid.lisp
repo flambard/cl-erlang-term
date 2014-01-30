@@ -13,6 +13,13 @@
 ;;; Methods
 ;;;
 
+(defun make-pid (node id serial creation)
+  (make-instance 'erlang-pid
+                 :node (make-symbol node)
+                 :id id
+                 :serial serial
+                 :creation creation))
+
 (defmethod print-object ((object erlang-pid) stream)
   (print-unreadable-object (object stream :type t)
     (with-slots (node id serial) object

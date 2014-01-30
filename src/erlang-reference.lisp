@@ -13,6 +13,12 @@
 ;;; Methods
 ;;;
 
+(defun make-reference (node id creation)
+  (make-instance 'erlang-reference
+                 :node (make-symbol node)
+                 :id id
+                 :creation creation))
+
 (defmethod print-object ((object erlang-reference) stream)
   (print-unreadable-object (object stream :type t)
     (with-slots (node id) object
