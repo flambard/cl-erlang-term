@@ -1,6 +1,6 @@
 (asdf:defsystem :erlang-term-test
   :description "Unit-tests for cl-erlang-term."
-  :depends-on (:erlang-term :fiveam :nibbles)
+  :depends-on (:erlang-term :erlang-term-optima :fiveam :nibbles)
   :components
   ((:module :test
             :components
@@ -18,5 +18,7 @@
              (:file "erlang-object-tests"
                     :depends-on ("package"))
              (:file "erlang-translatable-tests"
+                    :depends-on ("package"))
+             (:file "optima-tests"
                     :depends-on ("package"))
              ))))

@@ -1,7 +1,7 @@
 (defpackage #:erlang-term-test
   (:documentation "Unit tests for cl-erlang-term.")
-  (:use #:cl #:erlang-term #:etf-bops #:fiveam)
-  (:shadow #:run-all-tests)
+  (:use #:cl #:erlang-term #:etf-bops #:etf-optima #:optima #:fiveam)
+  (:shadow #:run-all-tests #:fail)
   (:export
 
    #:all-tests
@@ -18,6 +18,7 @@
 (def-suite encode              :in all-tests)
 (def-suite erlang-object       :in all-tests)
 (def-suite erlang-translatable :in all-tests)
+(def-suite optima-patterns     :in all-tests)
 
 (defun run-all-tests ()
   (run! 'all-tests))
