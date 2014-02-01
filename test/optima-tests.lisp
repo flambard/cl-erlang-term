@@ -2,6 +2,40 @@
 
 (in-suite optima-patterns)
 
+(test binary-pattern
+
+  (is-true (match (binary)
+             ((binary 0) nil)
+             ((binary 1 2 3) nil)
+             ((binary) t)))
+
+  (is-true (match (binary 255 255 255 0)
+             ((binary) nil)
+             ((binary 255 255 255) nil)
+             ((binary 255 255 255 0 0) nil)
+             ((binary a b c d)
+              (and (= 255 a b c) (= 0 d)))))
+
+  (is-true (match (string-to-binary "hej")
+             ((binary) nil)
+             ((binary 104 101 106 33) nil)
+             ((binary 104 101) nil)
+             ((binary 104 101 106) t)))
+
+  (is-true (match (binary (char-code #\X))
+             ((binary 0 "X" 34) nil)
+             ((binary "X" 0) t)
+             ((binary "X") t)))
+
+  (is-true (match (binary 104 101 106)
+             ((binary) nil)
+             ((binary "hej!") nil)
+             ((binary "he") nil)
+             ((binary "hej") t)))
+
+  )
+
+
 (test erlang-string-pattern
   (is-true (match (list)
              ((erlang-string "hello") nil)

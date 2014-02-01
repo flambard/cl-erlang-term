@@ -1,0 +1,65 @@
+(in-package :erlang-term-optima)
+
+;;
+;; Pattern matching for Erlang binaries.
+;;
+;; Syntax:
+;;
+;; binary-pattern-constructor ::= (binary SEGMENT*)
+;;
+;;
+;; Example:
+;;
+;; (match (binary 1 2 88)
+;;   ((binary 1 b "X") b))
+;; => 2
+;;
+
+
+;;;
+;;; BINARY pattern
+;;;
+
+(defstruct (binary-pattern
+             (:include optima::constructor-pattern)
+             (:constructor make-binary-pattern (&rest optima::subpatterns)))
+  )
+
+
+(defmethod optima::destructor-equal ((x binary-pattern) (y binary-pattern))
+  (= (optima::constructor-pattern-arity x)
+     (optima::constructor-pattern-arity y)))
+
+(defmethod optima::destructor-predicate-form ((pattern binary-pattern) var)
+  `(and (typep ,var 'erlang-binary)
+        (= (size ,var) ,(optima::constructor-pattern-arity pattern))))
+
+(defmethod optima::destructor-forms ((pattern binary-pattern) var)
+  (loop
+     for i from 0 below (optima::constructor-pattern-arity pattern)
+     collect `(aref (bytes ,var) ,i)))
+
+(defmethod optima::parse-constructor-pattern ((name (eql 'binary)) &rest args)
+  (apply #'make-binary-pattern
+         (mapcar #'optima::parse-pattern
+                 (flatten-string-patterns-to-bytes args))))
+
+(defmethod optima::unparse-pattern ((pattern binary-pattern))
+  ;; Currently strings in patterns will not be unparsed back to strings,
+  ;; they will be unparsed to constant bytes.
+  `(binary ,@(mapcar #'optima::unparse-pattern
+                     (binary-pattern-subpatterns pattern))))
+
+
+;;;
+;;; Helper functions
+;;;
+
+(defun flatten-string-patterns-to-bytes (patterns)
+  (reduce #'(lambda (pattern acc)
+              (if (stringp pattern)
+                  (nconc (string-to-byte-list pattern) acc)
+                  (cons pattern acc)))
+          patterns
+          :initial-value nil
+          :from-end t))

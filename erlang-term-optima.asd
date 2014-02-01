@@ -5,6 +5,8 @@
   ((:module :optima
             :components
             ((:file "package")
+             (:file "binary"
+                    :depends-on ("package"))
              (:file "erlang-string"
                     :depends-on ("package"))
              (:file "tuple"
