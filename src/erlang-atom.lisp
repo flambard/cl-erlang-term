@@ -105,7 +105,7 @@
   (concatenate 'nibbles:simple-octet-vector
                (vector +atom-ext+)
                (uint16-to-bytes (length (symbol-name atom)))
-               (string-to-bytes (symbol-name atom))))
+               (string-to-byte-vector (symbol-name atom))))
 
 (defun decode-external-atom (bytes &optional (pos 0))
   (let ((length (bytes-to-uint16 bytes pos))
@@ -127,7 +127,7 @@
   (concatenate 'nibbles:simple-octet-vector
                (vector +small-atom-ext+)
                (vector (length (symbol-name atom)))
-               (string-to-bytes (symbol-name atom))))
+               (string-to-byte-vector (symbol-name atom))))
 
 (defun decode-external-small-atom (bytes &optional (pos 0))
   (let ((length (aref bytes pos))

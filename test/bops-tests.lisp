@@ -19,9 +19,9 @@
   (is (= 515 (bytes-to-unsigned-integer #(1 2 3) 2 1)))
   )
 
-(test string-to-bytes
-  (is (equalp #() (string-to-bytes "")))
-  (is (equalp #(65 66 66 65) (string-to-bytes "ABBA")))
+(test string-to-byte-vector
+  (is (equalp #() (string-to-byte-vector "")))
+  (is (equalp #(65 66 66 65) (string-to-byte-vector "ABBA")))
   )
 
 (test bytes-to-string

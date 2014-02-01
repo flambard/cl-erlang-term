@@ -38,7 +38,7 @@
                (vector +string-ext+)
                (uint16-to-bytes (length chars))
                (if (stringp chars)
-                   (string-to-bytes chars)
+                   (string-to-byte-vector chars)
                    (coerce chars 'vector))))
 
 (defun decode-external-string (bytes &optional (pos 0))

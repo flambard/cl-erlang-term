@@ -52,7 +52,7 @@
 (defun encode-external-float (float)
   (concatenate 'nibbles:simple-octet-vector
                (vector +float-ext+)
-               (string-to-bytes (format nil "~(~,20E~)" float))))
+               (string-to-byte-vector (format nil "~(~,20E~)" float))))
 
 (defun decode-external-float (bytes &optional (pos 0))
   (let* ((padding-pos (position 0 bytes :start pos))

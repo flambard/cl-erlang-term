@@ -49,11 +49,11 @@
 
 (defun string-to-binary (string)
   "Creates an Erlang binary from the characters in STRING."
-  (make-instance 'erlang-binary :bytes (string-to-bytes string)))
+  (make-instance 'erlang-binary :bytes (string-to-byte-vector string)))
 
 (define-compiler-macro string-to-binary (&whole form string)
   (if (stringp string)
-      (make-instance 'erlang-binary :bytes (string-to-bytes string))
+      (make-instance 'erlang-binary :bytes (string-to-byte-vector string))
       form))
 
 (defun bytes-to-binary (bytes)

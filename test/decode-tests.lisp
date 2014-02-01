@@ -49,13 +49,13 @@
   (is (typep (decode (concatenate
                       'nibbles:simple-octet-vector
                       #(131 99)
-                      (string-to-bytes (format nil "~(~,20E~)" 4.56))
+                      (string-to-byte-vector (format nil "~(~,20E~)" 4.56))
                       #(0 0 0 0 0)))
              'float))
   (is (= 4.56 (decode (concatenate
                        'nibbles:simple-octet-vector
                        #(131 99)
-                       (string-to-bytes (format nil "~(~,20E~)" 4.56))
+                       (string-to-byte-vector (format nil "~(~,20E~)" 4.56))
                        #(0 0 0 0 0)))))
   )
 
