@@ -22,7 +22,7 @@
         ((> 65536 (length x))
          (encode-external-string x))
         (t
-         (encode-external-list (map 'list #'char-code x)))))
+         (encode-external-list (string-to-byte-list x)))))
 
 
 ;; STRING_EXT

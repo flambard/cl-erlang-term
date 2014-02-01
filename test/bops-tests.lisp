@@ -24,6 +24,11 @@
   (is (equalp #(65 66 66 65) (string-to-byte-vector "ABBA")))
   )
 
+(test string-to-byte-list
+  (is (equalp nil (string-to-byte-list "")))
+  (is (equalp (list 65 66 66 65) (string-to-byte-list "ABBA")))
+  )
+
 (test bytes-to-string
   (is (string= "" (bytes-to-string #())))
   (is (string= "ABBA" (bytes-to-string #(65 66 66 65))))

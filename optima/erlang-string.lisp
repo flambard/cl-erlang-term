@@ -17,4 +17,4 @@
 ;;
 
 (defpattern erlang-string (string)
-  `(list ,@(map 'list #'char-code string)))
+  `(list ,@(string-to-byte-list string)))

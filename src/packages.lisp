@@ -39,6 +39,7 @@ be implemented by an application that wants to use cached atom references.")
    #:write-uint16
    #:write-uint32
 
+   #:string-to-byte-list
    #:string-to-byte-vector
 
    ))

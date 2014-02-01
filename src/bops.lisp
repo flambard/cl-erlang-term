@@ -67,6 +67,9 @@
     bytes))
 
 
+(defun string-to-byte-list (string)
+  (map 'list #'char-code string))
+
 (defun string-to-byte-vector (string)
   (map 'simple-vector #'char-code string))
 
