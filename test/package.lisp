@@ -1,5 +1,6 @@
 (defpackage #:erlang-term-test
   (:documentation "Unit tests for cl-erlang-term.")
+  (:nicknames #:etf-test)
   (:use #:cl #:erlang-term #:etf-bops #:etf-optima #:optima #:fiveam)
   (:shadow #:run-all-tests #:fail)
   (:export
