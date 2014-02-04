@@ -13,7 +13,7 @@
   (is (keywordp (make-atom "sym3")))
   ;; Setting a new atom symbol package
   (let ((*atom-symbol-package* :erlang-term-test))
-    (is (string= "ERLANG-TERM-TEST"
+    (is (string= (symbol-name :erlang-term-test)
                  (package-name (symbol-package (make-atom "sym4"))))))
   ;; Matching atoms
   (is (match-p (make-atom "sym5") (make-atom "sym5")))
