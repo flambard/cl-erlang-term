@@ -65,15 +65,13 @@
 
 (defun list-contents-to-bytes (list)
   (loop
-     with bytes = #()
      for (element . tail) on list
      for length upfrom 1
-     do (setf bytes (concatenate
-                     'nibbles:simple-octet-vector
-                     bytes
-                     (encode element :version-tag nil)))
+     collect (encode element :version-tag nil) into encoded-elements
      finally
-       (let ((tail-bytes (if (and (null tail)
+       (let ((bytes (apply #'concatenate
+                           `(nibbles:simple-octet-vector ,@encoded-elements)))
+             (tail-bytes (if (and (null tail)
                                   *lisp-nil-at-tail-is-erlang-empty-list*)
                              (encode-external-nil)
                              (encode tail :version-tag nil))))

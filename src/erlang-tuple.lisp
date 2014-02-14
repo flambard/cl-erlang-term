@@ -102,12 +102,10 @@
 
 (defun mapconc-vector (fn vector)
   (loop
-     with bytes = #()
      for element across vector
-     do (setf bytes (concatenate 'nibbles:simple-octet-vector
-                                 bytes
-                                 (funcall fn element)))
-     finally (return bytes)))
+     collect (funcall fn element) into mapped-elements
+     finally (return (apply #'concatenate
+                            `(nibbles:simple-octet-vector ,@mapped-elements)))))
 
 (defun decode-tuple-contents (bytes arity pos)
   (loop
