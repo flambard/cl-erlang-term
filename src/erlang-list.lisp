@@ -65,9 +65,10 @@
 
 (defun list-contents-to-bytes (list)
   (loop
+     with length = 0
      for (element . tail) on list
-     for length upfrom 1
      collect (encode element :version-tag nil) into encoded-elements
+     do (incf length)
      finally
        (let ((bytes (apply #'concatenate
                            `(nibbles:simple-octet-vector ,@encoded-elements)))
