@@ -25,14 +25,15 @@
                     :depends-on ("packages"))
              (:file "bops"
                     :depends-on ("packages"))
-             (:file "classes"
-                    :depends-on ("packages"))
-             (:file "type-erlang-translatable"
-                    :depends-on ("packages"
-                                 "classes"))
              (:file "generic-functions"
                     :depends-on ("packages"
                                  "constants"))
+             (:file "classes"
+                    :depends-on ("packages"
+                                 "generic-functions"))
+             (:file "type-erlang-translatable"
+                    :depends-on ("packages"
+                                 "classes"))
              (:file "decode"
                     :depends-on ("packages"
                                  "conditions"
