@@ -24,7 +24,7 @@
 
   (is-true (match (binary (char-code #\X))
              ((binary 0 "X" 34) nil)
-             ((binary "X" 0) t)
+             ((binary "X" 0) nil)
              ((binary "X") t)))
 
   (is-true (match (binary 104 101 106)
