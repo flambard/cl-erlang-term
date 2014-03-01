@@ -21,34 +21,32 @@
 ;;;
 
 (defstruct (binary-pattern
-             (:include optima::constructor-pattern)
-             (:constructor make-binary-pattern (&rest optima::subpatterns)))
+             (:include constructor-pattern)
+             (:constructor make-binary-pattern (&rest subpatterns)))
   )
 
 
-(defmethod optima::destructor-equal ((x binary-pattern) (y binary-pattern))
-  (= (optima::constructor-pattern-arity x)
-     (optima::constructor-pattern-arity y)))
+(defmethod constructor-pattern-destructor-sharable-p ((x binary-pattern)
+                                                      (y binary-pattern))
+  (= (constructor-pattern-arity x) (constructor-pattern-arity y)))
 
-(defmethod optima::destructor-predicate-form ((pattern binary-pattern) var)
-  `(and (typep ,var 'erlang-binary)
-        (= (size ,var) ,(optima::constructor-pattern-arity pattern))))
+(defmethod constructor-pattern-make-destructor ((pattern binary-pattern) var)
+  (make-destructor
+   :predicate-form `(and (typep ,var 'erlang-binary)
+                         (= (size ,var) ,(constructor-pattern-arity pattern)))
+   :accessor-forms (loop
+                      for i from 0 below (constructor-pattern-arity pattern)
+                      collect `(aref (bytes ,var) ,i)) ))
 
-(defmethod optima::destructor-forms ((pattern binary-pattern) var)
-  (loop
-     for i from 0 below (optima::constructor-pattern-arity pattern)
-     collect `(aref (bytes ,var) ,i)))
-
-(defmethod optima::parse-constructor-pattern ((name (eql 'binary)) &rest args)
+(defmethod parse-constructor-pattern ((name (eql 'binary)) &rest args)
   (apply #'make-binary-pattern
-         (mapcar #'optima::parse-pattern
+         (mapcar #'parse-pattern
                  (flatten-string-patterns-to-bytes args))))
 
-(defmethod optima::unparse-pattern ((pattern binary-pattern))
+(defmethod unparse-pattern ((pattern binary-pattern))
   ;; Currently strings in patterns will not be unparsed back to strings,
   ;; they will be unparsed to constant bytes.
-  `(binary ,@(mapcar #'optima::unparse-pattern
-                     (binary-pattern-subpatterns pattern))))
+  `(binary ,@(mapcar #'unparse-pattern (binary-pattern-subpatterns pattern))))
 
 
 ;;;

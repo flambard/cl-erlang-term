@@ -16,26 +16,26 @@
 ;;
 
 (defstruct (tuple-pattern
-             (:include optima::constructor-pattern)
-             (:constructor make-tuple-pattern (&rest optima::subpatterns)))
+             (:include constructor-pattern)
+             (:constructor make-tuple-pattern (&rest subpatterns)))
   )
 
 
-(defmethod optima::destructor-equal ((x tuple-pattern) (y tuple-pattern))
-  (= (optima::constructor-pattern-arity x)
-     (optima::constructor-pattern-arity y)))
+(defmethod constructor-pattern-destructor-sharable-p ((x tuple-pattern)
+                                                      (y tuple-pattern))
+  (= (constructor-pattern-arity x) (constructor-pattern-arity y)))
 
-(defmethod optima::destructor-predicate-form ((pattern tuple-pattern) var)
-  `(and (typep ,var 'erlang-tuple)
-        (= (tuple-arity ,var) ,(optima::constructor-pattern-arity pattern))))
+(defmethod constructor-pattern-make-destructor ((pattern tuple-pattern) var)
+  (make-destructor
+   :predicate-form `(and (typep ,var 'erlang-tuple)
+                         (= (tuple-arity ,var)
+                            ,(constructor-pattern-arity pattern)))
+   :accessor-forms (loop
+                      for i from 0 below (constructor-pattern-arity pattern)
+                      collect `(tuple-ref ,var ,i))))
 
-(defmethod optima::destructor-forms ((pattern tuple-pattern) var)
-  (loop for i from 0 below (optima::constructor-pattern-arity pattern)
-        collect `(tuple-ref ,var ,i)))
+(defmethod parse-constructor-pattern ((name (eql 'tuple)) &rest args)
+  (apply #'make-tuple-pattern (mapcar #'parse-pattern args)))
 
-(defmethod optima::parse-constructor-pattern ((name (eql 'tuple)) &rest args)
-  (apply #'make-tuple-pattern (mapcar #'optima::parse-pattern args)))
-
-(defmethod optima::unparse-pattern ((pattern tuple-pattern))
-  `(tuple ,@(mapcar #'optima::unparse-pattern
-                    (tuple-pattern-subpatterns pattern))))
+(defmethod unparse-pattern ((pattern tuple-pattern))
+  `(tuple ,@(mapcar #'unparse-pattern (tuple-pattern-subpatterns pattern))))
