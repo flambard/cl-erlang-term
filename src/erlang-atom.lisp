@@ -21,7 +21,7 @@
 ;;; Encode/Decode
 ;;;
 
-(defmethod encode ((x symbol) &key &allow-other-keys)
+(defmethod encode-erlang-object ((x symbol))
   (cond
     ((and (null x) *lisp-nil-is-erlang-empty-list*)
      (encode-external-nil))

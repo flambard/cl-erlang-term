@@ -29,7 +29,7 @@
 ;;; Encode/Decode
 ;;;
 
-(defmethod encode ((x erlang-port) &key &allow-other-keys)
+(defmethod encode-erlang-object ((x erlang-port))
   (encode-external-port x))
 
 

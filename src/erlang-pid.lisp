@@ -40,7 +40,7 @@
 ;;; Encode/Decode
 ;;;
 
-(defmethod encode ((x erlang-pid) &key &allow-other-keys)
+(defmethod encode-erlang-object ((x erlang-pid))
   (encode-external-pid x))
 
 (defun decode-erlang-pid (bytes &optional (pos 0))

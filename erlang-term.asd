@@ -31,6 +31,9 @@
              (:file "classes"
                     :depends-on ("packages"
                                  "generic-functions"))
+             (:file "encode"
+                    :depends-on ("packages"
+                                 "generic-functions"))
              (:file "type-erlang-translatable"
                     :depends-on ("packages"
                                  "classes"))

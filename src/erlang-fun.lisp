@@ -57,14 +57,14 @@
 ;;;
 
 
-(defmethod encode ((x erlang-external-fun) &key &allow-other-keys)
+(defmethod encode-erlang-object ((x erlang-external-fun))
   (encode-external-export x))
 
-(defmethod encode ((x erlang-old-internal-fun) &key &allow-other-keys)
+(defmethod encode-erlang-object ((x erlang-old-internal-fun))
   (error 'not-implemented-error
          :comment "Just haven't implemented it yet."))
 
-(defmethod encode ((x erlang-new-internal-fun) &key &allow-other-keys)
+(defmethod encode-erlang-object ((x erlang-new-internal-fun))
   (error 'not-implemented-error
          :comment "Just haven't implemented it yet."))
 

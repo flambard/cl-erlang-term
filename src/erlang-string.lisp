@@ -16,7 +16,7 @@
 ;;; Encode/Decode
 ;;;
 
-(defmethod encode ((x string) &key &allow-other-keys)
+(defmethod encode-erlang-object ((x string))
   (cond (*lisp-string-is-erlang-binary*
          (encode (string-to-binary x) :version-tag nil))
         ((> 65536 (length x))

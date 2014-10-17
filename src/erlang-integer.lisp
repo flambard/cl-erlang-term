@@ -16,7 +16,7 @@
 ;;; Encode/Decode
 ;;;
 
-(defmethod encode ((x integer) &key &allow-other-keys)
+(defmethod encode-erlang-object ((x integer))
   (typecase x
     ((unsigned-byte 8)
      (encode-external-small-integer x))

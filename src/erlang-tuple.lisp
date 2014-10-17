@@ -45,7 +45,7 @@
 ;;; Encode/Decode
 ;;;
 
-(defmethod encode ((x erlang-tuple) &key &allow-other-keys)
+(defmethod encode-erlang-object ((x erlang-tuple))
   (if (> 256 (tuple-arity x))
       (encode-external-small-tuple x)
       (encode-external-large-tuple x)))

@@ -80,7 +80,7 @@
 ;;; Encode/Decode
 ;;;
 
-(defmethod encode ((x erlang-binary) &key &allow-other-keys)
+(defmethod encode-erlang-object ((x erlang-binary))
   (if (= 8 (bits-in-last-byte x))
       (encode-external-binary x)
       (encode-external-bit-binary x)))

@@ -16,7 +16,7 @@
 ;;; Encode/Decode
 ;;;
 
-(defmethod encode ((x float) &key &allow-other-keys)
+(defmethod encode-erlang-object ((x float))
   ;; Should the old FLOAT_EXT ever be used?
   (encode-external-new-float (coerce x 'double-float)))
 

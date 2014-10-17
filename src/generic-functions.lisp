@@ -4,21 +4,8 @@
 ;;;; ENCODE - For encoding Erlang terms
 ;;;;
 
-(defgeneric encode (erlang-translatable-object &key version-tag compressed)
+(defgeneric encode-erlang-object (erlang-translatable-object)
   (:documentation "Encodes the Erlang translatable object to a byte vector."))
-
-(defmethod encode :around (x &key (version-tag +protocol-version+) compressed)
-  (let ((bytes (call-next-method x)))
-    (when compressed
-      (setf bytes (concatenate 'nibbles:simple-octet-vector
-                               (vector +compressed-term+)
-                               (uint32-to-bytes (length bytes))
-                               (zlib:compress bytes :fixed))))
-    (when (integerp version-tag)
-      (setf bytes (concatenate 'nibbles:simple-octet-vector
-                               (vector version-tag)
-                               bytes)))
-    bytes))
 
 
 ;;;;

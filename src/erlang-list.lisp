@@ -17,7 +17,7 @@
 ;;; Encode/Decode
 ;;;
 
-(defmethod encode ((x list) &key &allow-other-keys)
+(defmethod encode-erlang-object ((x list))
   (if x
       (encode-external-list x)
       (encode-external-nil)))
