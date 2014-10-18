@@ -20,6 +20,12 @@
   ;; Should the old FLOAT_EXT ever be used?
   (encode-external-new-float (coerce x 'double-float)))
 
+(defmethod decode-erlang-object ((tag (eql +new-float-ext+)) bytes pos)
+  (decode-external-new-float bytes pos))
+
+(defmethod decode-erlang-object ((tag (eql +float-ext+)) bytes pos)
+  (decode-external-float bytes pos))
+
 
 ;; NEW_FLOAT_EXT
 ;; +----+------------+

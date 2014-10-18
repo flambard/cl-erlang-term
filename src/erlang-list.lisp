@@ -22,6 +22,12 @@
       (encode-external-list x)
       (encode-external-nil)))
 
+(defmethod decode-erlang-object ((tag (eql +nil-ext+)) bytes pos)
+  (decode-external-nil bytes pos))
+
+(defmethod decode-erlang-object ((tag (eql +list-ext+)) bytes pos)
+  (decode-external-list bytes pos))
+
 
 ;; NIL_EXT
 ;; +-----+

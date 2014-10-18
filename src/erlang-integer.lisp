@@ -27,6 +27,19 @@
     (t
      (encode-external-large-big x))))
 
+(defmethod decode-erlang-object ((tag (eql +small-integer-ext+)) bytes pos)
+  (decode-external-small-integer bytes pos))
+
+(defmethod decode-erlang-object ((tag (eql +integer-ext+)) bytes pos)
+  (decode-external-integer bytes pos))
+
+(defmethod decode-erlang-object ((tag (eql +small-big-ext+)) bytes pos)
+  (decode-external-small-big bytes pos))
+
+(defmethod decode-erlang-object ((tag (eql +large-big-ext+)) bytes pos)
+  (decode-external-large-big bytes pos))
+
+
 (defun decode-erlang-integer (bytes &optional (pos 0))
   (let ((tag (aref bytes pos)))
     (case tag

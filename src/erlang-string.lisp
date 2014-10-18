@@ -24,6 +24,9 @@
         (t
          (encode-external-list (string-to-byte-list x)))))
 
+(defmethod decode-erlang-object ((tag (eql +string-ext+)) bytes pos)
+  (decode-external-string bytes pos))
+
 
 ;; STRING_EXT
 ;; +-----+--------+------------+

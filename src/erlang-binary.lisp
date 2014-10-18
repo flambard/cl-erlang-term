@@ -85,6 +85,12 @@
       (encode-external-binary x)
       (encode-external-bit-binary x)))
 
+(defmethod decode-erlang-object ((tag (eql +binary-ext+)) bytes pos)
+  (decode-external-binary bytes pos))
+
+(defmethod decode-erlang-object ((tag (eql +bit-binary-ext+)) bytes pos)
+  (decode-external-bit-binary bytes pos))
+
 
 ;; BINARY_EXT
 ;; +-----+-----+------+

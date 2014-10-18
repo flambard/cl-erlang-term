@@ -41,6 +41,16 @@
          (t
           (encode-external-atom x)) ))) ))
 
+(defmethod decode-erlang-object ((tag (eql +atom-cache-ref+)) bytes pos)
+  (decode-external-atom-cache-ref bytes pos))
+
+(defmethod decode-erlang-object ((tag (eql +atom-ext+)) bytes pos)
+  (decode-external-atom bytes pos))
+
+(defmethod decode-erlang-object ((tag (eql +small-atom-ext+)) bytes pos)
+  (decode-external-small-atom bytes pos))
+
+
 (defun decode-erlang-atom (bytes &optional (pos 0))
   (let ((tag (aref bytes pos)))
     (multiple-value-bind (symbol pos2)

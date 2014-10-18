@@ -32,6 +32,9 @@
 (defmethod encode-erlang-object ((x erlang-port))
   (encode-external-port x))
 
+(defmethod decode-erlang-object ((tag (eql +port-ext+)) bytes pos)
+  (decode-external-port bytes pos))
+
 
 ;; PORT_EXT
 ;; +-----+------+----+----------+

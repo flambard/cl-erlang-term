@@ -50,6 +50,12 @@
       (encode-external-small-tuple x)
       (encode-external-large-tuple x)))
 
+(defmethod decode-erlang-object ((tag (eql +small-tuple-ext+)) bytes pos)
+  (decode-external-small-tuple bytes pos))
+
+(defmethod decode-erlang-object ((tag (eql +large-tuple-ext+)) bytes pos)
+  (decode-external-large-tuple bytes pos))
+
 
 ;; SMALL_TUPLE_EXT
 ;; +-----+-------+----------+

@@ -41,6 +41,12 @@
       (encode-external-reference x) ;; Perhaps always use new reference?
       (encode-external-new-reference x)))
 
+(defmethod decode-erlang-object ((tag (eql +reference-ext+)) bytes pos)
+  (decode-external-reference bytes pos))
+
+(defmethod decode-erlang-object ((tag (eql +new-reference-ext+)) bytes pos)
+  (decode-external-new-reference bytes pos))
+
 
 ;; REFERENCE_EXT
 ;; +-----+------+----+----------+

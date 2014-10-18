@@ -43,6 +43,9 @@
 (defmethod encode-erlang-object ((x erlang-pid))
   (encode-external-pid x))
 
+(defmethod decode-erlang-object ((tag (eql +pid-ext+)) bytes pos)
+  (decode-external-pid bytes pos))
+
 (defun decode-erlang-pid (bytes &optional (pos 0))
   (let ((tag (aref bytes pos)))
     (case tag
