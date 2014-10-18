@@ -7,9 +7,9 @@
 ;;;; ENCODE
 ;;;;
 
-(defun encode (x &key (version-tag +protocol-version+) compressed)
+(defun encode (term &key (version-tag +protocol-version+) compressed)
   "Encode an Erlang object into a sequence of bytes."
-  (let ((bytes (encode-erlang-object x)))
+  (let ((bytes (encode-erlang-object term)))
     (when compressed
       (setf bytes (zlib-compress bytes)))
     (when (integerp version-tag)
