@@ -102,7 +102,7 @@
       (loop
          repeat free-vars-length
          for (free-var p) = (multiple-value-list
-                             (decode bytes :start pos4))
+                             (decode bytes :start pos4 :version-tag nil))
          do (setf pos4 p)
          collect free-var into free-vars
          finally (return (values (make-instance 'erlang-old-internal-fun
@@ -152,7 +152,7 @@
       (loop
          repeat free-vars-length
          for (free-var p) = (multiple-value-list
-                             (decode bytes :start pos4))
+                             (decode bytes :start pos4 :version-tag nil))
          do (setf pos4 p)
          collect free-var into free-vars
          finally (return (progn
