@@ -1,7 +1,6 @@
 (in-package :erlang-term)
 
 (defconstant +protocol-version+ 131)
-(defconstant +compressed-term+   80)
 
 
 ;;;;
@@ -12,10 +11,7 @@
   "Encode an Erlang object into a sequence of bytes."
   (let ((bytes (encode-erlang-object x)))
     (when compressed
-      (setf bytes (concatenate 'nibbles:simple-octet-vector
-                               (vector +compressed-term+)
-                               (uint32-to-bytes (length bytes))
-                               (zlib:compress bytes :fixed))))
+      (setf bytes (zlib-compress bytes)))
     (when (integerp version-tag)
       (setf bytes (concatenate 'nibbles:simple-octet-vector
                                (vector version-tag)
@@ -38,9 +34,3 @@
     (incf start))
   (let ((tag (aref bytes start)))
     (decode-erlang-object tag bytes (1+ start))))
-
-(defmethod decode-erlang-object ((tag (eql +compressed-term+)) bytes pos)
-  (let* ((size (bytes-to-uint32 bytes pos))
-         (uncompressed (zlib:uncompress (subseq bytes (+ 4 pos))
-                                        :uncompressed-size size)))
-    (decode-erlang-object (aref uncompressed 0) uncompressed 1)))

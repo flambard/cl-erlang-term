@@ -28,13 +28,18 @@
              (:file "classes"
                     :depends-on ("packages"
                                  "generic-functions"))
-             (:file "coding-api"
-                    :depends-on ("packages"
-                                 "conditions"
-                                 "generic-functions"))
              (:file "type-erlang-translatable"
                     :depends-on ("packages"
                                  "classes"))
+             (:file "compressed-term"
+                    :depends-on ("packages"
+                                 "bops"
+                                 "generic-functions"))
+             (:file "coding-api"
+                    :depends-on ("packages"
+                                 "compressed-term"
+                                 "conditions"
+                                 "generic-functions"))
              (:file "erlang-atom"
                     :depends-on ("packages"
                                  "conditions"
