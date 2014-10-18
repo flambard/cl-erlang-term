@@ -1,7 +1,7 @@
 cl-erlang-term
 ==============
 
-Version: 0.2.1
+Version: 0.2.2
 
 cl-erlang-term is a Common Lisp library for encoding and decoding objects in the
 [Erlang External Term Format](http://erlang.org/doc/apps/erts/erl_ext_dist.html).
