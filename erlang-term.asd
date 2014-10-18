@@ -17,8 +17,6 @@
                     :depends-on ("packages"))
              (:file "conditions"
                     :depends-on ("packages"))
-             (:file "constants"
-                    :depends-on ("packages"))
              (:file "special-variables"
                     :depends-on ("packages"))
              (:file "atom-cache-interface"
@@ -26,8 +24,7 @@
              (:file "bops"
                     :depends-on ("packages"))
              (:file "generic-functions"
-                    :depends-on ("packages"
-                                 "constants"))
+                    :depends-on ("packages"))
              (:file "classes"
                     :depends-on ("packages"
                                  "generic-functions"))
