@@ -31,16 +31,13 @@
              (:file "classes"
                     :depends-on ("packages"
                                  "generic-functions"))
-             (:file "encode"
+             (:file "coding-api"
                     :depends-on ("packages"
+                                 "conditions"
                                  "generic-functions"))
              (:file "type-erlang-translatable"
                     :depends-on ("packages"
                                  "classes"))
-             (:file "decode"
-                    :depends-on ("packages"
-                                 "conditions"
-                                 "generic-functions"))
              (:file "erlang-atom"
                     :depends-on ("packages"
                                  "conditions"
