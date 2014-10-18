@@ -19,11 +19,17 @@
 (defmethod etf-aci:put-atom ((atom symbol) (cache mock-atom-cache))
   42)
 
-(defmethod etf-aci:put-atom ((atom (eql :|false|)) (cache mock-atom-cache))
+(defmethod etf-aci:put-atom ((atom (eql nil)) (cache mock-atom-cache))
   0)
 
-(defmethod etf-aci:put-atom ((atom (eql :|true|)) (cache mock-atom-cache))
+(defmethod etf-aci:put-atom ((atom (eql t)) (cache mock-atom-cache))
   1)
+
+(defmethod etf-aci:put-atom ((atom (eql :|false|)) (cache mock-atom-cache))
+  2)
+
+(defmethod etf-aci:put-atom ((atom (eql :|true|)) (cache mock-atom-cache))
+  3)
 
 (defmethod etf-aci:put-atom ((atom (eql :nope)) (cache mock-atom-cache))
   nil)
