@@ -49,14 +49,15 @@
           (encode-external-atom x)) ))) ))
 
 (defmethod decode-erlang-object ((tag (eql +atom-cache-ref+)) bytes pos)
-  (decode-external-atom-cache-ref bytes pos))
+  (multiple-value-bind (sym new-pos) (decode-external-atom-cache-ref bytes pos)
+    (values (translate-erlang-boolean sym) new-pos)))
 
 (defmethod decode-erlang-object ((tag (eql +atom-ext+)) bytes pos)
   (decode-external-atom bytes pos))
 
 (defmethod decode-erlang-object ((tag (eql +small-atom-ext+)) bytes pos)
-  (decode-external-small-atom bytes pos))
-
+  (multiple-value-bind (sym new-pos) (decode-external-small-atom bytes pos)
+    (values (translate-erlang-boolean sym) new-pos)))
 
 (defun decode-erlang-atom (bytes &optional (pos 0))
   (let ((tag (aref bytes pos)))
@@ -74,14 +75,14 @@
                   :expected-tags (list +atom-cache-ref+
                                        +atom-ext+
                                        +small-atom-ext+))) )
-      (cond
-        ((and (eq symbol '|true|) *erlang-true-is-lisp-t*)
-         (values t pos2))
-        ((and (eq symbol '|false|) *erlang-false-is-lisp-nil*)
-         (values nil pos2))
-        (t
-         (values symbol pos2))) )))
+      (values (translate-erlang-boolean symbol) pos2))))
 
+(defun translate-erlang-boolean (symbol)
+  (let ((name (symbol-name symbol)))
+    (cond
+      ((and (string= name "true") *erlang-true-is-lisp-t*) t)
+      ((and (string= name "false") *erlang-false-is-lisp-nil*) nil)
+      (t symbol))))
 
 
 ;; ATOM_CACHE_REF

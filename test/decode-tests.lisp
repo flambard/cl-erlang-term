@@ -6,9 +6,22 @@
   ;; ATOM_CACHE_REF
   (let ((etf-aci:*atom-cache* (make-instance 'mock-atom-cache)))
     (is (symbolp (decode (nibbles:octet-vector 131 82 42))))
-    (is (eq :abba (decode (nibbles:octet-vector 131 82 42))))
+    (is (string= "ABBA"
+                 (symbol-name (decode (nibbles:octet-vector 131 82 42)))))
+    (let ((*erlang-true-is-lisp-t* nil))
+      (is (string= "true"
+                   (symbol-name
+                    (decode (nibbles:octet-vector 131 82 1))))))
+    (let ((*erlang-true-is-lisp-t* t))
+      (is (eq t (decode (nibbles:octet-vector 131 82 1)))))
+    (let ((*erlang-false-is-lisp-nil* nil))
+      (is (string= "false"
+                   (symbol-name
+                    (decode (nibbles:octet-vector 131 82 0))))))
+    (let ((*erlang-false-is-lisp-nil* t))
+      (is (eq nil (decode (nibbles:octet-vector 131 82 0)))))
     ;; TODO: Add tests for error conditions (cache missing, atom missing)
-    )
+  )
   ;; ATOM_EXT
   (is (symbolp (decode (nibbles:octet-vector 131 100 0 4 65 66 66 65))))
   (is (string= "ABBA"
@@ -18,6 +31,18 @@
   (is (symbolp (decode (nibbles:octet-vector 131 115 4 65 66 66 65))))
   (is (string= "ABBA" (symbol-name
                        (decode (nibbles:octet-vector 131 115 4 65 66 66 65)))))
+  (let ((*erlang-true-is-lisp-t* nil))
+    (is (string= "true"
+                 (symbol-name
+                  (decode (nibbles:octet-vector 131 115 4 116 114 117 101))))))
+  (let ((*erlang-true-is-lisp-t* t))
+    (is (eq t (decode (nibbles:octet-vector 131 115 4 116 114 117 101)))))
+  (let ((*erlang-false-is-lisp-nil* nil))
+    (is (string= "false"
+                 (symbol-name (decode (nibbles:octet-vector
+                                       131 115 5 102 97 108 115 101))))))
+  (let ((*erlang-false-is-lisp-nil* t))
+    (is (eq nil (decode (nibbles:octet-vector 131 115 5 102 97 108 115 101)))))
   )
 
 (test decode-binary
