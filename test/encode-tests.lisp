@@ -114,6 +114,18 @@
               (encode (list 1 2 3))))
   (is (equalp (nibbles:octet-vector 131 108 0 0 0 1 97 1 97 2)
               (encode (cons 1 2))))
+  (let ((*lisp-nil-at-tail-is-erlang-empty-list* t)
+        (*lisp-nil-is-erlang-empty-list* nil))
+    (is (equalp (nibbles:octet-vector 131 108 0 0 0 1 97 1 106)
+                (encode (list 1)))))
+  (let ((*lisp-nil-at-tail-is-erlang-empty-list* nil)
+        (*lisp-nil-is-erlang-empty-list* t))
+    (is (equalp (nibbles:octet-vector 131 108 0 0 0 1 97 1 106)
+                (encode (list 1)))))
+  (let ((*lisp-nil-at-tail-is-erlang-empty-list* nil)
+        (*lisp-nil-is-erlang-empty-list* nil))
+    (is (equalp (nibbles:octet-vector 131 108 0 0 0 1 97 1 115 3 78 73 76)
+                (encode (list 1)))))
   )
 
 (test encode-pid
