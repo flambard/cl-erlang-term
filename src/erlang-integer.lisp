@@ -4,6 +4,14 @@
 ;;;; Erlang integer
 ;;;;
 
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (defconstant +small-integer-ext+  97)
+  (defconstant +integer-ext+        98)
+  (defconstant +small-big-ext+     110)
+  (defconstant +large-big-ext+     111)
+  )
+
+
 ;;;
 ;;; Methods
 ;;;

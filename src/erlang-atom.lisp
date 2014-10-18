@@ -4,6 +4,13 @@
 ;;;; Erlang atom
 ;;;;
 
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (defconstant +atom-cache-ref+ 82)
+  (defconstant +atom-ext+       100)
+  (defconstant +small-atom-ext+ 115)
+  )
+
+
 ;;;
 ;;; Methods
 ;;;

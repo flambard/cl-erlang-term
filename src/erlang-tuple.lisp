@@ -4,6 +4,10 @@
 ;;;; Erlang tuple
 ;;;;
 
+(defconstant +small-tuple-ext+ 104)
+(defconstant +large-tuple-ext+ 105)
+
+
 (defclass erlang-tuple (erlang-object)
   ((elements :reader elements :initarg :elements))
   (:documentation "Erlang tuple."))

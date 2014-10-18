@@ -4,6 +4,9 @@
 ;;;; Erlang port
 ;;;;
 
+(defconstant +port-ext+ 102)
+
+
 (defclass erlang-port (erlang-identifier)
   ()
   (:documentation "Erlang port."))

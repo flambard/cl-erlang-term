@@ -43,7 +43,6 @@
                                  "generic-functions"))
              (:file "erlang-atom"
                     :depends-on ("packages"
-                                 "constants"
                                  "conditions"
                                  "generic-functions"
                                  "special-variables"
@@ -51,7 +50,6 @@
                                  "bops"))
              (:file "erlang-binary"
                     :depends-on ("packages"
-                                 "constants"
                                  "conditions"
                                  "generic-functions"
                                  "special-variables"
@@ -59,14 +57,12 @@
                                  "bops"))
              (:file "erlang-float"
                     :depends-on ("packages"
-                                 "constants"
                                  "conditions"
                                  "generic-functions"
                                  "bops"))
              (:file "erlang-fun"
                     :depends-on ("packages"
                                  "macros"
-                                 "constants"
                                  "conditions"
                                  "generic-functions"
                                  "special-variables"
@@ -74,21 +70,18 @@
                                  "bops"))
              (:file "erlang-integer"
                     :depends-on ("packages"
-                                 "constants"
                                  "conditions"
                                  "generic-functions"
                                  "bops"))
              (:file "erlang-list"
                     :depends-on ("packages"
                                  "macros"
-                                 "constants"
                                  "conditions"
                                  "generic-functions"
                                  "special-variables"
                                  "bops"))
              (:file "erlang-pid"
                     :depends-on ("packages"
-                                 "constants"
                                  "conditions"
                                  "generic-functions"
                                  "special-variables"
@@ -96,28 +89,24 @@
                                  "bops"))
              (:file "erlang-port"
                     :depends-on ("packages"
-                                 "constants"
                                  "conditions"
                                  "generic-functions"
                                  "classes"
                                  "bops"))
              (:file "erlang-reference"
                     :depends-on ("packages"
-                                 "constants"
                                  "conditions"
                                  "generic-functions"
                                  "classes"
                                  "bops"))
              (:file "erlang-string"
                     :depends-on ("packages"
-                                 "constants"
                                  "conditions"
                                  "generic-functions"
                                  "special-variables"
                                  "bops"))
              (:file "erlang-tuple"
                     :depends-on ("packages"
-                                 "constants"
                                  "conditions"
                                  "generic-functions"
                                  "classes"

@@ -4,6 +4,9 @@
 ;;;; Erlang string
 ;;;;
 
+(defconstant +string-ext+ 107)
+
+
 ;;;
 ;;; Methods
 ;;;

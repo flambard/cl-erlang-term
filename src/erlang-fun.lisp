@@ -4,6 +4,11 @@
 ;;;; Erlang function ("Fun")
 ;;;;
 
+(defconstant +new-fun-ext+ 112)
+(defconstant +export-ext+  113)
+(defconstant +fun-ext+     117)
+
+
 ;;; fun M:F/A
 (defclass erlang-external-fun (erlang-fun)
   ((function :initarg :function))

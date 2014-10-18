@@ -4,6 +4,11 @@
 ;;;; Erlang pid
 ;;;;
 
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (defconstant +pid-ext+ 103)
+  )
+
+
 (defclass erlang-pid (erlang-identifier)
   ((serial :initarg :serial))
   (:documentation "Erlang PID."))

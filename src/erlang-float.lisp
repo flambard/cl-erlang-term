@@ -4,6 +4,10 @@
 ;;;; Erlang float
 ;;;;
 
+(defconstant +new-float-ext+ 70)
+(defconstant +float-ext+     99)
+
+
 ;;;
 ;;; Methods
 ;;;

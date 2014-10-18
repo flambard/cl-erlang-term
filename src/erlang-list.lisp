@@ -4,6 +4,10 @@
 ;;;; Erlang list
 ;;;;
 
+(defconstant +nil-ext+  106)
+(defconstant +list-ext+ 108)
+
+
 ;;;
 ;;; Methods
 ;;;

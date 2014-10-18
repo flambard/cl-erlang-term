@@ -4,6 +4,10 @@
 ;;;; Erlang reference
 ;;;;
 
+(defconstant +reference-ext+     101)
+(defconstant +new-reference-ext+ 114)
+
+
 (defclass erlang-reference (erlang-identifier)
   ()
   (:documentation "Erlang ref."))

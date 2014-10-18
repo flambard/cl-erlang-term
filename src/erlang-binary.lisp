@@ -4,6 +4,10 @@
 ;;;; Erlang binary
 ;;;;
 
+(defconstant +bit-binary-ext+ 77)
+(defconstant +binary-ext+     109)
+
+
 (defclass erlang-binary (erlang-object)
   ((bytes :reader bytes
           :initarg :bytes
