@@ -21,7 +21,7 @@
 
 (defmethod encode-erlang-object ((x string))
   (cond (*lisp-string-is-erlang-binary*
-         (encode (string-to-binary x) :version-tag nil))
+         (encode-erlang-object (string-to-binary x)))
         ((> 65536 (length x))
          (encode-external-string x))
         (t

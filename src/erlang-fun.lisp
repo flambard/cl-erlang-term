@@ -87,10 +87,10 @@
     (concatenate 'nibbles:simple-octet-vector
                  (vector +fun-ext+)
                  (uint32-to-bytes (length free-vars))
-                 (encode pid :version-tag nil)
-                 (encode module :version-tag nil)
-                 (encode index :version-tag nil)
-                 (encode uniq :version-tag nil)
+                 (encode-erlang-object pid)
+                 (encode-erlang-object module)
+                 (encode-erlang-object index)
+                 (encode-erlang-object uniq)
                  (list-contents-to-bytes free-vars))))
 
 (defun decode-external-fun (bytes &optional (pos 0))
@@ -129,10 +129,10 @@
                               new-uniq
                               (uint32-to-bytes new-index)
                               (uint32-to-bytes (length free-vars))
-                              (encode module :version-tag nil)
-                              (encode index :version-tag nil)
-                              (encode uniq :version-tag nil)
-                              (encode pid :version-tag nil)
+                              (encode-erlang-object module)
+                              (encode-erlang-object index)
+                              (encode-erlang-object uniq)
+                              (encode-erlang-object pid)
                               (list-contents-to-bytes free-vars))))
       (concatenate 'nibbles:simple-octet-vector
                    (vector +new-fun-ext+)
@@ -182,9 +182,9 @@
   (with-slots (module function arity) fun
     (concatenate 'nibbles:simple-octet-vector
                  (vector +export-ext+)
-                 (encode module :version-tag nil)
-                 (encode function :version-tag nil)
-                 (encode arity :version-tag nil))))
+                 (encode-erlang-object module)
+                 (encode-erlang-object function)
+                 (encode-erlang-object arity))))
 
 (defun decode-external-export (bytes &optional (pos 0))
   (multiple-value-bind* (((module pos1) (decode-erlang-atom bytes pos))

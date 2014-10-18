@@ -72,9 +72,7 @@
 (defun encode-external-small-tuple (tuple)
   (concatenate 'nibbles:simple-octet-vector
                (vector +small-tuple-ext+ (tuple-arity tuple))
-               (mapconc-vector #'(lambda (element)
-                                   (encode element :version-tag nil))
-                               (elements tuple))))
+               (mapconc-vector #'encode-erlang-object (elements tuple))))
 
 (defun decode-external-small-tuple (bytes &optional (pos 0))
   (let ((arity (aref bytes pos)))
@@ -96,9 +94,7 @@
   (concatenate 'nibbles:simple-octet-vector
                (vector +large-tuple-ext+)
                (uint32-to-bytes (tuple-arity tuple))
-               (mapconc-vector #'(lambda (element)
-                                   (encode element :version-tag nil))
-                               (elements tuple))))
+               (mapconc-vector #'encode-erlang-object (elements tuple))))
 
 (defun decode-external-large-tuple (bytes &optional (pos 0))
   (let ((arity (bytes-to-uint32 bytes pos)))

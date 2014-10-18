@@ -51,7 +51,7 @@
   (with-slots (node id creation) port
     (concatenate 'nibbles:simple-octet-vector
                  (vector +port-ext+)
-                 (encode node :version-tag nil)
+                 (encode-erlang-object node)
                  id
                  (vector creation))))
 

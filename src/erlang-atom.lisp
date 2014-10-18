@@ -33,9 +33,9 @@
     ((and (null x) *lisp-nil-is-erlang-empty-list*)
      (encode-external-nil))
     ((and (null x) *lisp-nil-is-erlang-false*)
-     (encode :|false| :version-tag nil))
+     (encode-erlang-object :|false|))
     ((and (eq t x) *lisp-t-is-erlang-true*)
-     (encode :|true| :version-tag nil))
+     (encode-erlang-object :|true|))
     (t
      (let ((index (when etf-aci:*atom-cache*
                     (etf-aci:put-atom x etf-aci:*atom-cache*))))

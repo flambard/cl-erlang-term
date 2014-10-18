@@ -77,7 +77,7 @@
   (loop
      with length = 0
      for (element . tail) on list
-     collect (encode element :version-tag nil) into encoded-elements
+     collect (encode-erlang-object element) into encoded-elements
      do (incf length)
      finally
        (let ((bytes (apply #'concatenate
@@ -85,7 +85,7 @@
              (tail-bytes (if (and (null tail)
                                   *lisp-nil-at-tail-is-erlang-empty-list*)
                              (encode-external-nil)
-                             (encode tail :version-tag nil))))
+                             (encode-erlang-object tail))))
          (return (values bytes tail-bytes length))) ))
 
 (defun decode-list-contents (bytes length &optional (pos 0))
