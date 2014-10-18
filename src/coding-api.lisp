@@ -34,3 +34,9 @@
     (incf start))
   (let ((tag (aref bytes start)))
     (decode-erlang-object tag bytes (1+ start))))
+
+(defmethod decode-erlang-object ((tag (eql +compressed-term+)) bytes pos)
+  (let* ((size (bytes-to-uint32 bytes pos))
+         (uncompressed (zlib:uncompress (subseq bytes (+ 4 pos))
+                                        :uncompressed-size size)))
+    (decode-erlang-object (aref uncompressed 0) uncompressed 1)))
