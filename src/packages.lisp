@@ -54,6 +54,11 @@ be implemented by an application that wants to use cached atom references.")
    #:erlang-translatable
    #:erlang-translatable-p
 
+   ;; Base classes
+   #:erlang-object
+   #:erlang-fun
+   #:erlang-internal-fun
+
    ;; Classes
    #:erlang-binary
    #:erlang-external-fun
