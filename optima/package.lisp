@@ -8,8 +8,12 @@
 
    ))
 
-(alexandria:simple-style-warning
- "Package ERLANG-TERM-OPTIMA is deprecated, due to the retirement of optima (removed from quicklisp).
-Consider switching to ERLANG-TERM-TRIVIA")
+(format *error-output*
+ "
+
+*** Package ERLANG-TERM-OPTIMA is deprecated, due to the retirement of optima (removed from quicklisp).
+*** Consider switching to ERLANG-TERM-TRIVIA
+
+")
 
 ;; 
