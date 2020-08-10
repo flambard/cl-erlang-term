@@ -5,10 +5,4 @@
   ((:module :trivia
             :components
             ((:file "package")
-             (:file "binary"
-                    :depends-on ("package"))
-             (:file "erlang-string"
-                    :depends-on ("package"))
-             (:file "tuple"
-                    :depends-on ("package"))
-             ))))
+             (:file "impl" :depends-on ("package"))))))
