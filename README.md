@@ -1,7 +1,7 @@
 cl-erlang-term
 ==============
 
-Version: 0.2.2
+Version: 0.2.3
 
 cl-erlang-term is a Common Lisp library for encoding and decoding objects in the
 [Erlang External Term Format](http://erlang.org/doc/apps/erts/erl_ext_dist.html).
@@ -14,12 +14,6 @@ Use [Quicklisp](http://www.quicklisp.org/) to install cl-erlang-term.
 
     > (ql:quickload :erlang-term)
 
-alternatively
-
-    > (ql:quickload :erlang-term-optima)
-
-if you wish to include the [optima](https://github.com/m2ym/optima) extensions
-for pattern matching on Erlang objects.
 
 ### Dependencies
 
@@ -31,7 +25,6 @@ for pattern matching on Erlang objects.
 Optional dependencies:
 
 - [FiveAM](http://common-lisp.net/project/fiveam/) (unit-tests)
-- [optima](https://github.com/m2ym/optima) (pattern matching)
 
 ### How to run the unit-tests
 
