@@ -6,6 +6,7 @@
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defconstant +pid-ext+ 103)
+  (defconstant +new-pid-ext+ 88)
   )
 
 
@@ -51,14 +52,18 @@
 (defmethod decode-erlang-object ((tag (eql +pid-ext+)) bytes pos)
   (decode-external-pid bytes pos))
 
+(defmethod decode-erlang-object ((tag (eql +new-pid-ext+)) bytes pos)
+  (decode-external-pid bytes pos t))
+
 (defun decode-erlang-pid (bytes &optional (pos 0))
   (let ((tag (aref bytes pos)))
     (case tag
-      (#.+pid-ext+ (decode-external-pid bytes (1+ pos)))
+      ((#.+pid-ext+ #.+new-pid-ext+)
+       (decode-external-pid bytes (1+ pos) (eql tag #.+new-pid-ext+)))
       (otherwise
        (error 'unexpected-erlang-term
               :received-tag tag
-              :expected-tags (list +pid-ext+))) )))
+              :expected-tags (list +pid-ext+ +new-pid-ext+))) )))
 
 
 ;; PID_EXT
@@ -68,21 +73,32 @@
 ;; | 103 | Node | ID | Serial | Creation |
 ;; +-----+------+----+--------+----------+
 ;;
+;; NEW_PID_EXT
+;; +-----+------+----+--------+----------+
+;; |  1  |   N  |  4 |    4   |     4    |
+;; +-----+------+----+--------+----------+
+;; |  88 | Node | ID | Serial | Creation |
+;; +-----+------+----+--------+----------+
+;;
 
 (defun encode-external-pid (pid)
   (with-slots (node id serial creation) pid
     (concatenate 'nibbles:simple-octet-vector
-                 (vector +pid-ext+)
+                 (vector +new-pid-ext+)
                  (encode-erlang-object node)
                  id
                  serial
-                 (vector creation))))
+                 (uint32-to-bytes creation))))
 
-(defun decode-external-pid (bytes &optional (pos 0))
+(defun decode-external-pid (bytes &optional (pos 0) (new-pid-ext nil))
   (multiple-value-bind (node pos1) (decode-erlang-atom bytes pos)
     (values (make-instance 'erlang-pid
                            :node node
                            :id (subseq bytes pos1 (+ pos1 4))
                            :serial (subseq bytes (+ pos1 4) (+ pos1 8))
-                           :creation (aref bytes (+ pos1 8)))
-            (+ pos1 9))))
+                           :creation (if new-pid-ext
+                                         (subseq bytes (+ pos1 8) (+ pos1 12))
+                                         (aref bytes (+ pos1 8))))
+            (if new-pid-ext
+                (+ pos1 12)
+                (+ pos1 9)))))

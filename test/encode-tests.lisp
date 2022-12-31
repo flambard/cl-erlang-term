@@ -128,9 +128,9 @@
                 (encode (list 1)))))
   )
 
-(test encode-pid
-  ;; PID_EXT
-  (is (equalp (nibbles:octet-vector 131 103 115 4 65 66 66 65 0 0 0 1 0 0 0 0 1)
+(test encode-new-pid
+  ;; NEW_PID_EXT
+  (is (equalp (nibbles:octet-vector 131 88 115 4 65 66 66 65 0 0 0 1 0 0 0 0 0 0 0 1)
               (encode (make-pid "ABBA" #(0 0 0 1) #(0 0 0 0) 1))))
   )
 

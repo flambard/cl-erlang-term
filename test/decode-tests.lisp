@@ -148,6 +148,13 @@
              'erlang-pid))
   )
 
+(test decode-new-pid
+  ;; NEW_PID_EXT
+  (is (typep (decode (nibbles:octet-vector 131 88 100 0 4 65 66 66 65
+                                           0 0 0 1 87 0 13 140 0 0 0 1))
+             'erlang-pid))
+  )
+
 (test decode-port
   ;; PORT_EXT
   (is (typep (decode
